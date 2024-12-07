@@ -1,9 +1,9 @@
-<div class="container">
-  <% content_for :title, "New issuer" %>
+<% content_for :title, "New issuer" %>
 
-  <h1>New issuer</h1>
-
-  <%= render "form", issuer: @issuer %>
-
-  <%= link_to "Back to issuers", issuers_path %>
+<div class="d-flex align-items-center">
+  <h1>New Issuer</h1>
+  <%= link_to "Back", issuers_path, class: "btn btn-sm btn-dark ms-auto" %>
 </div>
+
+<%= render "form", issuer: @issuer %>
+

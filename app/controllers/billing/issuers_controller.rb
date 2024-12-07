@@ -1,14 +1,10 @@
 module Billing
   class IssuersController < ApplicationController
-    before_action :set_issuer, only: %i[ show edit update destroy ]
+    before_action :set_issuer, only: %i[ edit update destroy ]
 
     # GET /issuers
     def index
       @issuers = Issuer.all
-    end
-
-    # GET /issuers/1
-    def show
     end
 
     # GET /issuers/new
@@ -25,7 +21,7 @@ module Billing
       @issuer = Issuer.new(issuer_params)
 
       if @issuer.save
-        redirect_to @issuer, notice: "Issuer was successfully created."
+        redirect_to issuers_path, notice: "Issuer was successfully created."
       else
         render :new, status: :unprocessable_entity
       end
@@ -34,7 +30,7 @@ module Billing
     # PATCH/PUT /issuers/1
     def update
       if @issuer.update(issuer_params)
-        redirect_to @issuer, notice: "Issuer was successfully updated.", status: :see_other
+        redirect_to issuers_path, notice: "Issuer was successfully updated.", status: :see_other
       else
         render :edit, status: :unprocessable_entity
       end
