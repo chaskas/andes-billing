@@ -1,0 +1,10 @@
+<% content_for :title, "Edit recipient" %>
+
+<div class="d-flex align-items-center">
+  <h1>Edit Recipient</h1>
+  <%= button_to "", @recipient, method: :delete, class: "btn btn-sm btn-danger bi bi-trash ms-3" %>
+  <%= link_to "Back", recipients_path, class: "btn btn-sm btn-dark ms-auto" %>
+
+</div>
+
+<%= render "form", recipient: @recipient %>

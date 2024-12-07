@@ -1,0 +1,9 @@
+<% content_for :title, "New recipient" %>
+
+<div class="d-flex align-items-center">
+  <h1>New Recipient</h1>
+  <%= link_to "Back", recipients_path, class: "btn btn-sm btn-dark ms-auto" %>
+</div>
+
+<%= render "form", recipient: @recipient %>
+
