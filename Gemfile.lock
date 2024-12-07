@@ -203,6 +203,8 @@ PLATFORMS
 
 DEPENDENCIES
   billing!
+  cssbundling-rails (~> 1.4)
+  importmap-rails
   puma
   sprockets-rails
   sqlite3

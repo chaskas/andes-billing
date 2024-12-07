@@ -1,0 +1,12 @@
+<% content_for :title, "Editing issuer" %>
+
+<h1>Editing issuer</h1>
+
+<%= render "form", issuer: @issuer %>
+
+<br>
+
+<div>
+  <%= link_to "Show this issuer", @issuer %> |
+  <%= link_to "Back to issuers", issuers_path %>
+</div>

@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Issuers" %>
+
+<h1>Issuers</h1>
+
+<div id="issuers">
+  <% @issuers.each do |issuer| %>
+    <%= render issuer %>
+    <p>
+      <%= link_to "Show this issuer", issuer %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New issuer", new_issuer_path %>

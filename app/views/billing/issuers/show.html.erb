@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @issuer %>
+
+<div>
+  <%= link_to "Edit this issuer", edit_issuer_path(@issuer) %> |
+  <%= link_to "Back to issuers", issuers_path %>
+
+  <%= button_to "Destroy this issuer", @issuer, method: :delete %>
+</div>
