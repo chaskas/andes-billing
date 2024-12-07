@@ -1,0 +1,23 @@
+{
+  "name": "app",
+  "private": "true",
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "autoprefixer": "^10.4.19",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "nodemon": "^3.1.3",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "sass": "^1.77.5"
+  },
+  "scripts": {
+    "build:css:compile": "sass ./app/assets/stylesheets/billing/application.bootstrap.scss:./app/assets/builds/billing.css --no-source-map --load-path=node_modules",
+    "build:css:prefix": "postcss ./app/assets/builds/billing.css --use=autoprefixer --output=./app/assets/builds/billing.css",
+    "build:css": "yarn build:css:compile && yarn build:css:prefix",
+    "watch:css": "nodemon --watch ./app/assets/stylesheets/billing/ --ext scss --exec \"yarn build:css\""
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
