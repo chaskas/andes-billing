@@ -1,16 +1,37 @@
-<p style="color: green"><%= notice %></p>
+<div class="container ">
 
-<% content_for :title, "Issuers" %>
-
-<h1>Issuers</h1>
-
-<div id="issuers">
-  <% @issuers.each do |issuer| %>
-    <%= render issuer %>
-    <p>
-      <%= link_to "Show this issuer", issuer %>
-    </p>
+  <% unless notice.blank? %>
+    <div class="alert alert-success mt-3" role="alert">
+      <%= notice %>
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New issuer", new_issuer_path %>
+  <% content_for :title, "Issuers" %>
+
+  <h1>Issuers</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">TAX Number</th>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Options</th>
+    </tr>
+    </thead>
+    <tbody>
+
+      <% @issuers.each do |issuer| %>
+        <tr>
+          <th><%= issuer.taxNumber %></th>
+          <td><%= issuer.name %></td>
+          <td><%= issuer.phone %></td>
+          <td><%= link_to "Show this issuer", issuer %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+
+  <%= link_to "New issuer", new_issuer_path %>
+</div>
