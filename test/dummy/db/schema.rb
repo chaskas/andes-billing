@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_07_173043) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_07_173043) do
   create_table "billing_issuers", force: :cascade do |t|
     t.string "name"
     t.string "taxNumber"

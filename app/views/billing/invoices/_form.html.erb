@@ -1,0 +1,62 @@
+<%= form_with(model: invoice) do |form| %>
+  <% if invoice.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+        <% invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :issue_date, style: "display: block" %>
+    <%= form.datetime_field :issue_date %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div>
+    <%= form.label :number, style: "display: block" %>
+    <%= form.number_field :number %>
+  </div>
+
+  <div>
+    <%= form.label :billing_issuer_id, style: "display: block" %>
+    <%= form.text_field :billing_issuer_id %>
+  </div>
+
+  <div>
+    <%= form.label :billing_recipient_id, style: "display: block" %>
+    <%= form.text_field :billing_recipient_id %>
+  </div>
+
+  <div>
+    <%= form.label :net_total, style: "display: block" %>
+    <%= form.text_field :net_total %>
+  </div>
+
+  <div>
+    <%= form.label :tax_rate, style: "display: block" %>
+    <%= form.number_field :tax_rate %>
+  </div>
+
+  <div>
+    <%= form.label :tax_amount, style: "display: block" %>
+    <%= form.text_field :tax_amount %>
+  </div>
+
+  <div>
+    <%= form.label :gross_total, style: "display: block" %>
+    <%= form.text_field :gross_total %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
