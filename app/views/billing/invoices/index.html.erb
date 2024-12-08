@@ -25,10 +25,10 @@
 
   <% @invoices.each do |invoice| %>
     <tr>
-      <th><%= invoice.issue_date %></th>
+      <th><%= invoice.issue_date.year %></th>
       <td><%= invoice.number %></td>
-      <td><%= invoice.recipient.id %></td>
-      <td><%= invoice.gross_total %></td>
+      <td><%= invoice.recipient.name %></td>
+      <td><%=number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".")%></td>
       <td>
         <div class="d-inline-flex">
           <%= button_to "", edit_invoice_path(invoice), method: :get, class: "btn btn-sm btn-success bi bi-pencil me-1" %>
