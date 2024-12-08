@@ -50,7 +50,7 @@ module Billing
 
       # Only allow a list of trusted parameters through.
       def issuer_params
-        params.require(:issuer).permit(:name, :taxNumber, :email, :address, :phone )
+        params.require(:issuer).permit(:name, :tax_number, :email, :address, :phone )
       end
   end
 end
