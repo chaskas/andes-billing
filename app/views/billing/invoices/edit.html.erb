@@ -1,10 +1,10 @@
-<h1>Editing invoice</h1>
+<% content_for :title, "Edit invoice" %>
+
+<div class="d-flex align-items-center">
+  <h1>Edit Invoice</h1>
+  <%= button_to "", @invoice, method: :delete, class: "btn btn-sm btn-danger bi bi-trash ms-3" %>
+  <%= link_to "Back", invoices_path, class: "btn btn-sm btn-dark ms-auto" %>
+
+</div>
 
 <%= render "form", invoice: @invoice %>
-
-<br>
-
-<div>
-  <%= link_to "Show this invoice", @invoice %> |
-  <%= link_to "Back to invoices", invoices_path %>
-</div>
