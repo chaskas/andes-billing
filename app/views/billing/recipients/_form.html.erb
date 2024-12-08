@@ -1,7 +1,7 @@
 <%= form_with(model: recipient) do |form| %>
   <% if recipient.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(recipient.errors.count, "error") %> prohibited this recipient from being saved:</h2>
+      <h4><%= pluralize(recipient.errors.count, "error") %> prohibited this recipient from being saved:</h4>
 
       <ul>
         <% recipient.errors.each do |error| %>

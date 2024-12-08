@@ -1,7 +1,7 @@
 <%= form_with(model: issuer) do |form| %>
   <% if issuer.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(issuer.errors.count, "error") %> prohibited this issuer from being saved:</h2>
+      <h4><%= pluralize(issuer.errors.count, "error") %> prohibited this issuer from being saved:</h4>
 
       <ul>
         <% issuer.errors.each do |error| %>
