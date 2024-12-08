@@ -3,6 +3,8 @@ module Billing
     belongs_to :issuer, class_name: "Billing::Issuer", foreign_key: "billing_issuer_id"
     belongs_to :recipient, class_name: "Billing::Recipient", foreign_key: "billing_recipient_id"
 
+    has_many :invoice_items, class_name: "Billing::InvoiceItem", foreign_key: "billing_invoice_id", dependent: :destroy
+
     validates :issue_date, :billing_issuer_id, :billing_recipient_id, presence: true
 
     before_save :set_number
