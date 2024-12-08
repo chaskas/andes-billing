@@ -1,8 +1,7 @@
 <%= form_with(model: invoice) do |form| %>
   <% if invoice.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
-
+      <h4><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h4>
       <ul>
         <% invoice.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,52 +10,49 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :issue_date, style: "display: block" %>
-    <%= form.datetime_field :issue_date %>
+  <div class="row mb-3 justify-content-md-left">
+    <div class="col">
+      <%= form.label :issue_date, "Issue Date", class: "col-form-label fw-bold" %>
+      <%= form.date_field :issue_date, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row mb-3 justify-content-md-left">
+    <div class="col">
+      <%= form.label :billing_issuer_id, "Issuer", class: "col-form-label fw-bold" %>
+      <%= form.select :billing_issuer_id, @issuers.map { |issuer| [issuer.name, issuer.id] }, { }, class: "form-select" %>
+    </div>
+  </div>
+
+  <div class="row mb-3 justify-content-md-left">
+    <div class="col">
+      <%= form.label :billing_recipient_id, "Recipient", class: "form-label fw-bold" %>
+      <%= form.select :billing_recipient_id, @recipients.map { |recipient| [recipient.name, recipient.id] }, { }, class: "form-select" %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :number, style: "display: block" %>
-    <%= form.number_field :number %>
-  </div>
-
-  <div>
-    <%= form.label :billing_issuer_id, style: "display: block" %>
-    <%= form.text_field :billing_issuer_id %>
-  </div>
-
-  <div>
-    <%= form.label :billing_recipient_id, style: "display: block" %>
-    <%= form.text_field :billing_recipient_id %>
-  </div>
-
-  <div>
-    <%= form.label :net_total, style: "display: block" %>
-    <%= form.text_field :net_total %>
-  </div>
-
-  <div>
-    <%= form.label :tax_rate, style: "display: block" %>
-    <%= form.number_field :tax_rate %>
-  </div>
-
-  <div>
-    <%= form.label :tax_amount, style: "display: block" %>
-    <%= form.text_field :tax_amount %>
-  </div>
-
-  <div>
-    <%= form.label :gross_total, style: "display: block" %>
-    <%= form.text_field :gross_total %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit :Submit, class: "btn btn-success mt-3 mb-3" %>
   </div>
 <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

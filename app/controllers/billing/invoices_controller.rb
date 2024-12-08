@@ -1,6 +1,8 @@
 module Billing
   class InvoicesController < ApplicationController
     before_action :set_invoice, only: %i[ edit update destroy ]
+    before_action :get_issuers, only: %i[ new create edit ]
+    before_action :get_recipients, only: %i[ new create edit ]
 
     # GET /invoices
     def index
@@ -52,5 +54,13 @@ module Billing
       def invoice_params
         params.require(:invoice).permit(:issue_date, :status, :number, :billing_issuer_id, :billing_recipient_id, :net_total, :tax_rate, :tax_amount, :gross_total)
       end
+
+    def get_issuers
+      @issuers = Issuer.order(:name)
+    end
+
+    def get_recipients
+      @recipients = Recipient.order(:name)
+    end
   end
 end
