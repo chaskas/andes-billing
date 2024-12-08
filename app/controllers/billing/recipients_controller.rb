@@ -50,7 +50,7 @@ module Billing
 
       # Only allow a list of trusted parameters through.
       def recipient_params
-        params.require(:recipient).permit(:name, :taxNumber, :email, :phone, :address)
+        params.require(:recipient).permit(:name, :tax_number, :email, :phone, :address)
       end
   end
 end
