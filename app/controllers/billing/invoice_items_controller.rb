@@ -10,7 +10,7 @@ module Billing
       @invoice_item = InvoiceItem.new(invoice_item_params)
 
       if @invoice_item.save
-        redirect_to edit_invoice_path(@invoice), notice: "Invoice item was successfully created."
+        redirect_to edit_invoice_path(@invoice), notice: "Item was successfully created."
       else
         puts "invoice_item.errors: #{@invoice_item}"
       end
@@ -20,7 +20,7 @@ module Billing
     def destroy
       @invoice = Invoice.find(@invoice_item.billing_invoice_id)
       @invoice_item.destroy!
-      redirect_to edit_invoice_path(@invoice), notice: "Invoice was successfully destroyed.", status: :see_other
+      redirect_to edit_invoice_path(@invoice), notice: "Item was successfully destroyed.", status: :see_other
     end
 
     private
