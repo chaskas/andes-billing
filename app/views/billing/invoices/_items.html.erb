@@ -21,7 +21,7 @@
 
   <% items.each do |item| %>
     <tr>
-      <th><%= item.date %></th>
+      <th><%= item.date&.to_fs(:day_month_year) %></th>
       <td><%= item.duration %></td>
       <td><%= item.type %></td>
       <td><%= item.amount %></td>
