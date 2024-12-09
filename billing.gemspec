@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "cssbundling-rails", "~> 1.4"
   spec.add_dependency "importmap-rails"
   spec.add_dependency "pg"
+  spec.add_dependency "turbo-rails"
 end

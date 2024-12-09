@@ -1,3 +1,9 @@
+<div class="d-flex align-items-center">
+  <h1>Items</h1>
+  <%= link_to "", new_invoice_item_path, method: 'get', data: { turbo_action: "replace", turbo_method: "get" }, class: "btn btn-sm btn-primary bi bi-plus ms-3" %>
+</div>
+
+
 <% unless notice.blank? %>
   <div class="alert alert-success mt-3" role="alert">
     <%= notice %>

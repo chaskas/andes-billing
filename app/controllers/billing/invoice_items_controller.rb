@@ -4,16 +4,25 @@ module Billing
     before_action :set_invoice_item, only: %i[ destroy ]
     skip_before_action :verify_authenticity_token
 
+    def new
+      @invoice_item = InvoiceItem.new
+      puts "hola"
+    end
+
     # POST /invoice_items
     def create
-      puts "invoice_item_params: #{invoice_item_params}"
       @invoice_item = InvoiceItem.new(invoice_item_params)
 
-      if @invoice_item.save
-        redirect_to edit_invoice_path(@invoice), notice: "Item was successfully created."
-      else
-        puts "invoice_item.errors: #{@invoice_item}"
+      respond_to do |format|
+        if @invoice_item.save
+          format.html { redirect_to edit_invoice_path(@invoice), notice: "Item was successfully created." }
+        else
+          format.html { render "billing/invoice_items/new", status: :unprocessable_entity }
+          format.turbo_stream { render turbo_stream: turbo_stream.replace(@invoice_item, partial: "billing/invoice_items/new", locals: { invoice_item: @invoice_item }) }
+        end
       end
+
+
     end
 
     # DELETE /invoices/1

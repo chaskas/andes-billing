@@ -16,8 +16,8 @@ module Billing
 
     # GET /invoices/1/edit
     def edit
-      @item = InvoiceItem.new(billing_invoice_id: @invoice.id)
-      @items = @invoice.invoice_items.all
+      @invoice_item = InvoiceItem.new(billing_invoice_id: @invoice.id)
+      @invoice_items = @invoice.invoice_items.all
     end
 
     # POST /invoices
