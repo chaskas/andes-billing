@@ -12,8 +12,3 @@
 <%= turbo_frame_tag "new_item" do %>
   <%= render partial: "billing/invoice_items/new", invoice_item: @invoice_item %>
 <% end %>
-
-<%= turbo_frame_tag "invoice_items" do %>
-  <%= render @invoice_items %>
-<% end %>
-
