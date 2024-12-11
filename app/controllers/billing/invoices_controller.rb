@@ -25,7 +25,7 @@ module Billing
       @invoice = Invoice.new(invoice_params)
 
       if @invoice.save
-        redirect_to invoices_url, notice: "Invoice was successfully created."
+        redirect_to edit_invoice_path(@invoice), notice: "Invoice was successfully created."
       else
         render :new, status: :unprocessable_entity
       end
