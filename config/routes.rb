@@ -1,6 +1,7 @@
 Billing::Engine.routes.draw do
-  resources :invoices
-  resources :invoice_items
+  resources :invoices do
+    resources :invoice_items
+  end
   resources :recipients
   resources :issuers
 

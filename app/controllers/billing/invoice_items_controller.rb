@@ -1,27 +1,20 @@
 module Billing
   class InvoiceItemsController < ApplicationController
-    before_action :set_invoice, only: %i[ create ]
+    before_action :set_invoice, only: %i[ new create ]
     before_action :set_invoice_item, only: %i[ destroy ]
-    skip_before_action :verify_authenticity_token
+    # skip_before_action :verify_authenticity_token
 
     def new
-      @invoice_item = InvoiceItem.new
-      puts "hola"
+      @invoice_item = @invoice.invoice_items.new
     end
 
     # POST /invoice_items
     def create
-      @invoice_item = InvoiceItem.new(invoice_item_params)
+      @invoice_item = @invoice.invoice_items.create!(invoice_item_params)
 
       respond_to do |format|
-        if @invoice_item.save
-          format.html { redirect_to edit_invoice_path(@invoice), notice: "Item was successfully created." }
-        else
-          format.html { render "billing/invoice_items/new", status: :unprocessable_entity }
-          format.turbo_stream { render turbo_stream: turbo_stream.replace(@invoice_item, partial: "billing/invoice_items/new", locals: { invoice_item: @invoice_item }) }
-        end
+        format.html { redirect_to edit_invoice_path(@invoice) }
       end
-
 
     end
 
@@ -35,7 +28,7 @@ module Billing
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_invoice
-        @invoice = Invoice.find(params[:invoice_item][:billing_invoice_id])
+        @invoice = Invoice.find(params[:invoice_id])
       end
 
       def set_invoice_item
