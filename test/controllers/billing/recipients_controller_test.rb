@@ -20,7 +20,7 @@ module Billing
 
     test "should create recipient" do
       assert_difference("Recipient.count") do
-        post recipients_url, params: { recipient: { address: @recipient.address, email: @recipient.email, name: @recipient.name, phone: @recipient.phone, taxNumber: @recipient.taxNumber } }
+        post recipients_url, params: { recipient: { address: @recipient.address, email: @recipient.email, name: @recipient.name, phone: @recipient.phone, tax_number: @recipient.tax_number } }
       end
 
       assert_redirected_to recipient_url(Recipient.last)
@@ -37,8 +37,8 @@ module Billing
     end
 
     test "should update recipient" do
-      patch recipient_url(@recipient), params: { recipient: { address: @recipient.address, email: @recipient.email, name: @recipient.name, phone: @recipient.phone, taxNumber: @recipient.taxNumber } }
-      assert_redirected_to recipient_url(@recipient)
+      patch recipient_url(@recipient), params: { recipient: { address: @recipient.address, email: @recipient.email, name: @recipient.name, phone: @recipient.phone, tax_number: @recipient.tax_number } }
+      assert_redirected_to recipients_url
     end
 
     test "should destroy recipient" do
