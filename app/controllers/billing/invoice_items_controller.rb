@@ -37,7 +37,7 @@ module Billing
 
       # Only allow a list of trusted parameters through.
       def invoice_item_params
-        params.require(:invoice_item).permit(:date, :duration, :type, :amount, :unit_price, :billing_invoice_id)
+        params.require(:invoice_item).permit(:date, :duration, :kind, :unit_price, :billing_invoice_id)
       end
   end
 end

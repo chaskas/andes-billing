@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "new_invoice_item", target: "_top" do %>
 
-  <%= form_with(model: [ @invoice_item.invoice, @invoice_item]) do |form| %>
+  <%= form_with(model: [@invoice_item.invoice, @invoice_item]) do |form| %>
 
     <% if @invoice_item.errors.any? %>
       <div style="color: red">
@@ -13,30 +13,29 @@
       </div>
     <% end %>
 
-    <div class="row mb-3 justify-content-evenly">
+    <div class="row">
       <div class="col">
-        <%= form.label :date, "Date", class: "col-form-label fw-bold" %>
-        <%= form.date_field :date, class: "form-control" %>
-      </div>
-      <div class="col">
-        <%= form.label :duration, class: "col-form-label fw-bold" %>
-        <%= form.number_field :duration, class: "form-control" %>
-      </div>
-      <div class="col">
-        <%= form.label :type, class: "col-form-label fw-bold" %>
-        <%= form.text_field :type, class: "form-select" %>
-      </div>
-      <div class="col">
-        <%= form.label :amount, class: "col-form-label fw-bold" %>
-        <%= form.number_field :amount, class: "form-control" %>
-      </div>
-      <div class="col">
-        <%= form.label :unit_price, class: "col-form-label fw-bold" %>
-        <%= form.text_field :unit_price, class: "form-control" %>
-      </div>
-      <div class="col align-self-end">
-        <%= form.hidden_field :billing_invoice_id, value: @invoice_item.billing_invoice_id %>
-        <%= form.submit :Submit, class: "btn btn-primary btn-sm bi bi-plus mb-1" %>
+        <div class="row mt-5 d-flex justify-content-center">
+          <div class="col-2">
+            <%= form.label :date, "Date", class: "col-form-label fw-bold" %>
+            <%= form.date_field :date, class: "form-control" %>
+          </div>
+          <div class="col-2">
+            <%= form.label :duration, class: "col-form-label fw-bold" %>
+            <%= form.number_field :duration, class: "form-control" %>
+          </div>
+          <div class="col-2">
+            <%= form.label :kind, class: "col-form-label fw-bold" %>
+            <%= form.select :kind, Billing::InvoiceItem.kinds.keys.map { |kind| [kind.humanize, kind] }, {}, class: "form-select" %>
+          </div>
+          <div class="col-2">
+            <%= form.label :unit_price, class: "col-form-label fw-bold" %>
+            <%= form.text_field :unit_price, class: "form-control" %>
+          </div>
+          <div class="col-2 align-self-end">
+            <%= form.submit :Submit, class: "btn btn-primary btn-sm bi bi-plus mb-1" %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
