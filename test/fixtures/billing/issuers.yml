@@ -2,14 +2,14 @@
 
 one:
   name: MyString
-  taxNumber: MyString
+  tax_number: MyString
   email: MyString
   address: MyString
   phone: MyString
 
 two:
   name: MyString
-  taxNumber: MyString
+  tax_number: MyString
   email: MyString
   address: MyString
   phone: MyString
