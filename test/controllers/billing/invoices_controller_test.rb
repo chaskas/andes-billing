@@ -13,7 +13,7 @@ module Billing
 
     test 'should get index' do
       get invoices_url
-      assert_response :new
+      assert_response :success
     end
 
     test 'should get new' do
