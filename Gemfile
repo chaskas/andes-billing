@@ -15,3 +15,5 @@ gem "sprockets-rails"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 gem "cssbundling-rails", "~> 1.4"
 gem "importmap-rails"
+
+gem "execjs"

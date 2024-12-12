@@ -1,4 +1,4 @@
-class CreateBillingIssuers < ActiveRecord::Migration[8.0]
+class CreateBillingIssuers < ActiveRecord::Migration[7.1]
   def change
     create_table :billing_issuers do |t|
       t.string :name
