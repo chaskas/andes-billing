@@ -142,6 +142,9 @@ GEM
     nokogiri (1.16.8-x86_64-linux)
       racc (~> 1.4)
     pg (1.5.9)
+    pluginator (1.5.0)
+    pre-commit (0.40.0)
+      pluginator (~> 1.5)
     psych (5.2.1)
       date
       stringio
@@ -223,6 +226,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.4)
   execjs
   importmap-rails
+  pre-commit
   puma
   rails (~> 7.1.3, >= 7.1.3.4)
   sprockets-rails
