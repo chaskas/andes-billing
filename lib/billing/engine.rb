@@ -1,3 +1,7 @@
+require "importmap-rails"
+require "turbo-rails"
+require "stimulus-rails"
+
 module Billing
   class Engine < ::Rails::Engine
     isolate_namespace Billing

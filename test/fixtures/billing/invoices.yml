@@ -5,7 +5,7 @@ one:
   status: 1
   number: 1
   issuer: one
-  recipient: one
+  recipient: two
   net_total: 9.99
   tax_rate: 1
   tax_amount: 9.99

@@ -1,0 +1,44 @@
+
+<% unless notice.blank? %>
+  <div class="alert alert-success mt-3" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% content_for :title, "Invoice items" %>
+
+<% unless invoice_items.count > 0 %>
+  <p class="text-center">
+    No invoices items found.
+  </p>
+<% else %>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col" class="text-center">Date</th>
+      <th scope="col" class="text-center">Duration</th>
+      <th scope="col" class="text-center">Kind</th>
+      <th scope="col" class="text-end">Unit Price</th>
+      <th scope="col" class="text-center">Options</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <% invoice_items.each do |item| %>
+      <tr>
+        <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
+        <td class="text-center"><%= item.duration %></td>
+        <td class="text-center"><%= item.kind %></td>
+        <td class="text-end"><%=number_to_currency(item.unit_price, unit: "€", separator: ",", delimiter: ".")%></td>
+        <td class="text-center">
+          <div class="d-inline-flex">
+            <%= button_to "", invoice_invoice_item_path(item.invoice, item), method: :delete, class: "btn btn-sm btn-danger bi bi-trash" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+<% end %>

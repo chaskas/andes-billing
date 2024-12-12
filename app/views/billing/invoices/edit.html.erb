@@ -9,6 +9,8 @@
 
 <%= render "form", invoice: @invoice %>
 
-<%= turbo_frame_tag "new_item" do %>
-  <%= render partial: "billing/invoice_items/new", invoice_item: @invoice_item %>
-<% end %>
+<div id="invoice_items">
+  <%= render "billing/invoice_items/invoice_items", invoice_items: @invoice.invoice_items %>
+</div>
+
+<%= turbo_frame_tag "new_invoice_item", src: new_invoice_invoice_item_path(@invoice), target: "_top" %>

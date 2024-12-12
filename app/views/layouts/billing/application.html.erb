@@ -8,8 +8,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <%= stylesheet_link_tag "billing", media: "all" %>
+  <%= stylesheet_link_tag "billing", media: "all", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags "application-billing" %>
+
+  <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+
 </head>
 <body>
 <div class="container-sm mt-5">

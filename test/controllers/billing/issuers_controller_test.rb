@@ -20,7 +20,7 @@ module Billing
 
     test "should create issuer" do
       assert_difference("Issuer.count") do
-        post issuers_url, params: { issuer: { address: @issuer.address, email: @issuer.email, name: @issuer.name, phone: @issuer.phone, taxNumber: @issuer.taxNumber } }
+        post issuers_url, params: { issuer: { address: @issuer.address, email: @issuer.email, name: @issuer.name, phone: @issuer.phone, tax_number: @issuer.tax_number } }
       end
 
       assert_redirected_to issuer_url(Issuer.last)
@@ -37,7 +37,7 @@ module Billing
     end
 
     test "should update issuer" do
-      patch issuer_url(@issuer), params: { issuer: { address: @issuer.address, email: @issuer.email, name: @issuer.name, phone: @issuer.phone, taxNumber: @issuer.taxNumber } }
+      patch issuer_url(@issuer), params: { issuer: { address: @issuer.address, email: @issuer.email, name: @issuer.name, phone: @issuer.phone, tax_number: @issuer.tax_number } }
       assert_redirected_to issuer_url(@issuer)
     end
 

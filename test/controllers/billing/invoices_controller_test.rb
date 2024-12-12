@@ -20,10 +20,10 @@ module Billing
 
     test "should create invoice" do
       assert_difference("Invoice.count") do
-        post invoices_url, params: { invoice: { gross_total: @invoice.gross_total, issue_date: @invoice.issue_date, issuer_id: @invoice.issuer_id, net_total: @invoice.net_total, number: @invoice.number, recipient_id: @invoice.recipient_id, status: @invoice.status, tax_amount: @invoice.tax_amount, tax_rate: @invoice.tax_rate } }
+        post invoices_url, params: { invoice: { gross_total: @invoice.gross_total, issue_date: @invoice.issue_date, billing_issuer_id: @invoice.issuer.id, net_total: @invoice.net_total, number: @invoice.number, billing_recipient_id: @invoice.recipient.id, status: @invoice.status, tax_amount: @invoice.tax_amount, tax_rate: @invoice.tax_rate } }
       end
 
-      assert_redirected_to invoice_url(Invoice.last)
+      assert_redirected_to edit_invoice_url(Billing::Invoice.last)
     end
 
     test "should show invoice" do
@@ -37,7 +37,7 @@ module Billing
     end
 
     test "should update invoice" do
-      patch invoice_url(@invoice), params: { invoice: { gross_total: @invoice.gross_total, issue_date: @invoice.issue_date, issuer_id: @invoice.issuer_id, net_total: @invoice.net_total, number: @invoice.number, recipient_id: @invoice.recipient_id, status: @invoice.status, tax_amount: @invoice.tax_amount, tax_rate: @invoice.tax_rate } }
+      patch invoice_url(@invoice), params: { invoice: { gross_total: @invoice.gross_total, issue_date: @invoice.issue_date, issuer_id: @invoice.issuer.id, net_total: @invoice.net_total, number: @invoice.number, recipient_id: @invoice.recipient.id, status: @invoice.status, tax_amount: @invoice.tax_amount, tax_rate: @invoice.tax_rate } }
       assert_redirected_to invoice_url(@invoice)
     end
 
