@@ -18,8 +18,6 @@ gem 'cssbundling-rails', '~> 1.4'
 gem 'importmap-rails'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.4'
 
-gem 'execjs'
-gem 'pre-commit', require: false
+gem 'overcommit'
 gem 'rubocop', require: false
-gem 'rubocop-capybara', '~> 2.21', require: false
-gem 'rubocop-rails', '~> 2.27', require: false
+gem 'rails_best_practices', require: false
