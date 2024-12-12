@@ -23,12 +23,7 @@ module Billing
         post issuers_url, params: { issuer: { address: @issuer.address, email: @issuer.email, name: @issuer.name, phone: @issuer.phone, tax_number: @issuer.tax_number } }
       end
 
-      assert_redirected_to issuer_url(Issuer.last)
-    end
-
-    test "should show issuer" do
-      get issuer_url(@issuer)
-      assert_response :success
+      assert_redirected_to issuers_url
     end
 
     test "should get edit" do
@@ -38,7 +33,7 @@ module Billing
 
     test "should update issuer" do
       patch issuer_url(@issuer), params: { issuer: { address: @issuer.address, email: @issuer.email, name: @issuer.name, phone: @issuer.phone, tax_number: @issuer.tax_number } }
-      assert_redirected_to issuer_url(@issuer)
+      assert_redirected_to issuers_url
     end
 
     test "should destroy issuer" do
