@@ -21,4 +21,5 @@ gem 'rails', '~> 7.1.3', '>= 7.1.3.4'
 gem 'overcommit'
 gem 'rails_best_practices', require: false
 gem 'rubocop', require: false
+gem 'rubocop-rails', require: false
 
