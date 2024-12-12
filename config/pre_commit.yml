@@ -1,0 +1,7 @@
+---
+:checks_remove: []
+:checks_add:
+- :common
+- :rails
+- :rubocop
+- :migration
