@@ -26,6 +26,7 @@ PreCommit:
       - 'public/**/*'
       - 'storage/**/*'
       - 'Gemfile'
+      - '*.gemspec'
   RuboCop:
     enabled: true
     on_warn: fail # Treat all warnings as failures
