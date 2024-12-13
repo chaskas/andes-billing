@@ -92,6 +92,13 @@ GEM
     ast (2.4.2)
     base64 (0.2.0)
     benchmark (0.4.0)
+    better_html (2.1.1)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
+      ast (~> 2.0)
+      erubi (~> 1.4)
+      parser (>= 2.4)
+      smart_properties
     bigdecimal (3.1.8)
     builder (3.3.0)
     childprocess (5.1.0)
@@ -105,6 +112,13 @@ GEM
       railties (>= 6.0.0)
     date (3.4.1)
     drb (2.2.1)
+    erb_lint (0.7.0)
+      activesupport
+      better_html (>= 2.0.1)
+      parser (>= 2.7.1.4)
+      rainbow
+      rubocop (>= 1)
+      smart_properties
     erubi (1.13.0)
     erubis (2.7.0)
     globalid (1.2.1)
@@ -235,6 +249,7 @@ GEM
     ruby-progressbar (1.13.0)
     securerandom (0.4.0)
     sexp_processor (4.17.3)
+    smart_properties (1.17.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -267,6 +282,7 @@ PLATFORMS
 DEPENDENCIES
   billing!
   cssbundling-rails (~> 1.4)
+  erb_lint
   importmap-rails
   overcommit
   puma
