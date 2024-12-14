@@ -17,6 +17,7 @@
 
 PreCommit:
   ALL:
+    problem_on_unmodified_line: ignore
     exclude:
       - 'bin/**/*'
       - 'config/**/*'
