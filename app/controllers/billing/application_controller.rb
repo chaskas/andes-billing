@@ -1,4 +1,5 @@
 module Billing
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
+    layout 'application' if Rails.application.class.name.deconstantize == 'Andes'
   end
 end

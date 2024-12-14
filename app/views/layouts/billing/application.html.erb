@@ -11,12 +11,8 @@
   <%= stylesheet_link_tag "billing", media: "all", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags "application-billing" %>
 
-  <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
-
 </head>
 <body>
-
-<%= render partial: "website/shared/navbar" %>
 
 <div class="container-sm mt-5">
   <%= yield %>
