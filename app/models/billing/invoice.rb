@@ -13,7 +13,7 @@ module Billing
       reduced: 7
     }
 
-    before_save :set_gross_total
+    before_save :set_gross_total, :set_number
 
     def set_net_total
       self.net_total = self.invoice_items.sum(:unit_price) || 0

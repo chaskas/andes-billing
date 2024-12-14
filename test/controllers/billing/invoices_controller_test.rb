@@ -27,11 +27,7 @@ module Billing
           gross_total: @invoice.gross_total,
           issue_date: @invoice.issue_date,
           billing_issuer_id: @invoice.issuer.id,
-          net_total: @invoice.net_total,
-          number: @invoice.number,
           billing_recipient_id: @invoice.recipient.id,
-          status: @invoice.status,
-          tax_amount: @invoice.tax_amount,
           tax_rate: @invoice.tax_rate
         } }
       end
