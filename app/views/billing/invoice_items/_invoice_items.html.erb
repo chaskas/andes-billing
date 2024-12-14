@@ -1,10 +1,3 @@
-
-<% unless notice.blank? %>
-  <div class="alert alert-success mt-3" role="alert">
-    <%= notice %>
-  </div>
-<% end %>
-
 <% content_for :title, "Invoice items" %>
 
 <% unless invoice_items.count > 0 %>

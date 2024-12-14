@@ -1,0 +1,15 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col" class="text-center">Net Total</th>
+    <th scope="col" class="text-center">Tax Total</th>
+    <th scope="col" class="text-center">Gross Total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="text-center"><%= number_to_currency invoice.net_total %></td>
+    <td class="text-center"><%= number_to_currency invoice.tax_amount %></td>
+    <td class="text-center"><%= number_to_currency invoice.gross_total %></td>
+  </tr>
+</table>

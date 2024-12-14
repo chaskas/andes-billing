@@ -13,7 +13,11 @@ module Billing
       @invoice_item = @invoice.invoice_items.create!(invoice_item_params)
 
       respond_to do |format|
-        format.html { redirect_to edit_invoice_path(@invoice) }
+        if @invoice_item.save
+          format.html { redirect_to edit_invoice_path(@invoice), notice: "Item was successfully created." }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+        end
       end
 
     end

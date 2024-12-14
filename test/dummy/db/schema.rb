@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_11_165004) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_14_103907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -32,10 +32,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_11_165004) do
     t.integer "number", null: false
     t.bigint "billing_issuer_id", null: false
     t.bigint "billing_recipient_id", null: false
-    t.decimal "net_total"
-    t.integer "tax_rate"
-    t.decimal "tax_amount"
-    t.decimal "gross_total"
+    t.decimal "net_total", default: "0.0"
+    t.integer "tax_rate", default: 0
+    t.decimal "tax_amount", default: "0.0"
+    t.decimal "gross_total", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["billing_issuer_id"], name: "index_billing_invoices_on_billing_issuer_id"

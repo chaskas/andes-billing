@@ -7,7 +7,28 @@ module Billing
 
     validates :issue_date, :billing_issuer_id, :billing_recipient_id, presence: true
 
-    before_save :set_number
+    enum tax_rate: {
+      exempt: 0,
+      standard: 19,
+      reduced: 7
+    }
+
+    before_save :set_gross_total
+
+    def set_net_total
+      self.net_total = self.invoice_items.sum(:unit_price) || 0
+    end
+
+    def set_tax_amount
+      self.set_net_total
+      self.tax_amount = self.net_total * self.tax_rate_before_type_cast.to_d / 100
+    end
+
+    def set_gross_total
+      self.set_net_total
+      self.set_tax_amount
+      self.gross_total = self.net_total + self.tax_amount.to_d
+    end
 
     private
 
@@ -20,8 +41,8 @@ module Billing
         end
       end
 
-    def set_number
-      self.number = get_last_number_for_year(self.issue_date.year) + 1
-    end
+      def set_number
+        self.number = get_last_number_for_year(self.issue_date.year) + 1
+      end
   end
 end

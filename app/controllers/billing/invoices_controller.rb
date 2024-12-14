@@ -54,15 +54,15 @@ module Billing
 
       # Only allow a list of trusted parameters through.
       def invoice_params
-        params.require(:invoice).permit(:issue_date, :billing_issuer_id, :billing_recipient_id)
+        params.require(:invoice).permit(:issue_date, :billing_issuer_id, :billing_recipient_id, :tax_rate)
       end
 
-    def get_issuers
-      @issuers = Issuer.order(:name)
-    end
+      def get_issuers
+        @issuers = Issuer.order(:name)
+      end
 
-    def get_recipients
-      @recipients = Recipient.order(:name)
-    end
+      def get_recipients
+        @recipients = Recipient.order(:name)
+      end
   end
 end

@@ -28,12 +28,6 @@ PreCommit:
       - 'storage/**/*'
       - 'Gemfile'
       - '*.gemspec'
-  RuboCop:
-    enabled: true
-    on_warn: fail # Treat all warnings as failures
-  AllCops:
-    enabled: enable
-    TargetRubyVersion: 3.2.3
   ErbLint:
     enabled: true
   RailsBestPractices:

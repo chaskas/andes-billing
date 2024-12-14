@@ -9,8 +9,11 @@
 
 <%= render "form", invoice: @invoice %>
 
-<div id="invoice_items">
+<%= turbo_frame_tag "new_invoice_item", src: new_invoice_invoice_item_path(@invoice), target: "_top" %>
+
+<div id="invoice_items" class="my-5">
+  <h2>Items</h2>
   <%= render "billing/invoice_items/invoice_items", invoice_items: @invoice.invoice_items %>
 </div>
 
-<%= turbo_frame_tag "new_invoice_item", src: new_invoice_invoice_item_path(@invoice), target: "_top" %>
+<%= render "totals", invoice: @invoice %>
