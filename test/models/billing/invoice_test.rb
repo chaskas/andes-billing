@@ -7,6 +7,14 @@ module Billing
       @invoice = billing_invoices(:one)
     end
 
+    test "should get invoice number 1 if no invoices on that year" do
+      @invoice.issue_date = Date.new(2019, 1, 1)
+
+      @invoice.save!
+
+      assert_equal 1, @invoice.number
+    end
+
     test "should set net total" do
       # Arrange
       item = InvoiceItem.new(unit_price: 10, date: Date.today, billing_invoice_id: @invoice.id)
