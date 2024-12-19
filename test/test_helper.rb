@@ -1,3 +1,8 @@
+require 'simplecov'
+SimpleCov.start do
+  minimum_coverage 90
+end
+
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 

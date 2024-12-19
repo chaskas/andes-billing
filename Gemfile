@@ -24,4 +24,6 @@ gem 'rails_best_practices', require: false
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 
-
+group :test do
+  gem 'simplecov', require: false
+end
