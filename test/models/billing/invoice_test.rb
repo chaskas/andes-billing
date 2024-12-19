@@ -5,6 +5,8 @@ module Billing
 
     setup do
       @invoice = billing_invoices(:one)
+      @issuer = billing_issuers(:one)
+      @recipient = billing_recipients(:one)
     end
 
     test "should get invoice number 1 if no invoices on that year" do
@@ -13,6 +15,16 @@ module Billing
       @invoice.save!
 
       assert_equal 1, @invoice.number
+    end
+
+    test "should get invoice number 2 if there is an invoice on that year" do
+      @invoice.issue_date = Date.new(2019, 1, 1)
+      @invoice.save!
+
+      new_invoice = Invoice.new(issue_date: Date.new(2019, 1, 1), billing_issuer_id: @issuer.id, billing_recipient_id: @recipient.id)
+      new_invoice.save!
+
+      assert_equal 2, new_invoice.number
     end
 
     test "should set net total" do
