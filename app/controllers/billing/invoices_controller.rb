@@ -1,6 +1,6 @@
 module Billing
   class InvoicesController < ApplicationController
-    before_action :set_invoice, only: %i[ edit update destroy ]
+    before_action :set_invoice, only: %i[ show edit update destroy ]
     before_action :get_issuers, only: %i[ new create edit ]
     before_action :get_recipients, only: %i[ new create edit ]
 
@@ -12,6 +12,10 @@ module Billing
     # GET /invoices/new
     def new
       @invoice = Invoice.new
+    end
+
+    def show
+      @invoice = Invoice.find(params[:id])
     end
 
     # GET /invoices/1/edit

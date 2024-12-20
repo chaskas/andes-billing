@@ -14,23 +14,24 @@
 <table class="table table-hover">
   <thead>
   <tr>
-    <th scope="col">Year</th>
-    <th scope="col">Number</th>
-    <th scope="col">Recipient</th>
-    <th scope="col">Total</th>
-    <th scope="col">Options</th>
+    <th scope="col" class="text-center">Year</th>
+    <th scope="col" class="text-center">Number</th>
+    <th scope="col" class="text-center">Recipient</th>
+    <th scope="col" class="text-center">Total</th>
+    <th scope="col" class="text-center">Options</th>
   </tr>
   </thead>
   <tbody>
 
   <% @invoices.each do |invoice| %>
     <tr>
-      <th><%= invoice.issue_date.year %></th>
-      <td><%= invoice.number %></td>
-      <td><%= invoice.recipient.name %></td>
-      <td><%=number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".")%></td>
+      <td class="text-center"><%= invoice.issue_date.year %></td>
+      <td class="text-center"><%= invoice.number %></td>
+      <td class="text-center"><%= invoice.recipient.name %></td>
+      <td class="text-center"><%= number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".") %></td>
       <td>
-        <div class="d-inline-flex">
+        <div class="d-flex justify-content-center">
+          <%= button_to "", invoice, method: :get, class: "btn btn-sm btn-primary bi bi-eye me-1" %>
           <%= button_to "", edit_invoice_path(invoice), method: :get, class: "btn btn-sm btn-success bi bi-pencil me-1" %>
           <%= button_to "", invoice, method: :delete, class: "btn btn-sm btn-danger bi bi-trash" %>
         </div>

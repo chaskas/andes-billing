@@ -18,7 +18,7 @@
     </thead>
     <tbody>
 
-    <% invoice_items.each do |item| %>
+    <% invoice_items.sort_by { |i| i.date }.each do |item| %>
       <tr>
         <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
         <td class="text-center"><%= item.duration %></td>
