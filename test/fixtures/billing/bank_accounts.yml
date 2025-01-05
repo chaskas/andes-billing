@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: John Doe
+  bank_name: N26
+  iban: DE89 3704 0044 0532 0130 00
+  bic: DEUTDEFF
+  holder:

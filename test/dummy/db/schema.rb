@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_14_103907) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_20_151402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "billing_bank_accounts", force: :cascade do |t|
+    t.string "name"
+    t.string "bank_name"
+    t.string "iban"
+    t.string "bic"
+    t.string "holder_type"
+    t.bigint "holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["holder_type", "holder_id"], name: "index_billing_bank_accounts_on_holder"
+  end
 
   create_table "billing_invoice_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "billing_invoice_id", null: false

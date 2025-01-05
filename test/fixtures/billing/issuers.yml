@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  tax_number: MyString
-  email: MyString
-  address: MyString
-  phone: MyString
+  name: "John Doe"
+  tax_number: "1234567890"
+  email: "johndoe@email.com"
+  address: "123 Main St"
+  phone: "+49 123 456 7890"
 
 two:
   name: MyString
