@@ -2,7 +2,6 @@ module Billing
   class InvoiceItemsController < ApplicationController
     before_action :set_invoice, only: %i[ new create ]
     before_action :set_invoice_item, only: %i[ destroy ]
-    # skip_before_action :verify_authenticity_token
 
     def new
       @invoice_item = @invoice.invoice_items.new
