@@ -40,7 +40,3 @@ PreCommit:
 PrePush:
   Minitest:
     enabled: true
-    command: ['bundle', 'exec', 'rails', 'test']
-    flags: ['--verbose']
-    env:
-      HEADLESS: 'true'
