@@ -12,10 +12,7 @@
 <%= turbo_frame_tag "new_invoice_item", src: billing.new_invoice_invoice_item_path(@invoice) %>
 
 <%= turbo_frame_tag "invoice_items" do %>
-  <div class="my-5">
-    <h2>Items</h2>
-    <%= render "billing/invoice_items/invoice_items", invoice_items: @invoice.invoice_items %>
-  </div>
+  <%= render "billing/invoice_items/invoice_items", invoice_items: @invoice.invoice_items %>
 <% end %>
 
 <%= turbo_frame_tag "invoice_totals" do %>
