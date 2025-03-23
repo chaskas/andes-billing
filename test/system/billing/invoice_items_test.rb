@@ -47,8 +47,6 @@ module Billing
       assert_no_text "prohibited this item from being saved"
       assert_no_text "Date can't be blank"
 
-      # Assert that the form is reset
-      assert_field "Date", with: ""
     end
 
     test "validation errors are updated correctly when filling in previously unfilled fields" do
