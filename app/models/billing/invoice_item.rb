@@ -4,7 +4,7 @@ module Billing
 
     enum kind: [ :normal, :trial ]
 
-    validates :date, presence: true
+    validates :date, :duration, :kind, :unit_price, presence: true
 
     after_save :update_invoice_totals
     after_destroy :update_invoice_totals

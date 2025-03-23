@@ -29,7 +29,7 @@ module Billing
 
     test "should set net total" do
       # Arrange
-      item = InvoiceItem.new(unit_price: 10, date: Date.today, billing_invoice_id: @invoice.id)
+      item = InvoiceItem.new(unit_price: 10, date: Date.today, duration: 10, kind: :normal, billing_invoice_id: @invoice.id)
       item.save!
 
       # Act
@@ -48,7 +48,7 @@ module Billing
     end
 
     test "should set tax amount" do
-      item = InvoiceItem.new(unit_price: 10, date: Date.today, billing_invoice_id: @invoice.id)
+      item = InvoiceItem.new(unit_price: 10, date: Date.today, duration: 10, kind: :normal, billing_invoice_id: @invoice.id)
       item.save!
 
       @invoice.tax_rate = Invoice.tax_rates[:standard]
@@ -59,7 +59,7 @@ module Billing
     end
 
     test "should set gross total" do
-      item = InvoiceItem.new(unit_price: 10, date: Date.today, billing_invoice_id: @invoice.id)
+      item = InvoiceItem.new(unit_price: 10, date: Date.today, duration: 10, kind: :normal, billing_invoice_id: @invoice.id)
       item.save!
 
       @invoice.tax_rate = Invoice.tax_rates[:standard]

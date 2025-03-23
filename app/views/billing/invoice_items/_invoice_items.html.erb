@@ -18,15 +18,17 @@
     </thead>
     <tbody>
 
-    <% invoice_items.sort_by { |i| i.date }.each do |item| %>
+    <% invoice_items.sort_by { |i| i.date || Time.zone.now }.each do |item| %>
       <tr>
         <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
         <td class="text-center"><%= item.duration %></td>
         <td class="text-center"><%= item.kind %></td>
-        <td class="text-end"><%=number_to_currency(item.unit_price, unit: "€", separator: ",", delimiter: ".")%></td>
+        <td class="text-end"><%= number_to_currency(item.unit_price, unit: "€", separator: ",", delimiter: ".") %></td>
         <td class="text-center">
           <div class="d-inline-flex">
-            <%= button_to "", invoice_invoice_item_path(item.invoice, item), method: :delete, class: "btn btn-sm btn-danger bi bi-trash" %>
+            <% if item.id.present? %>
+              <%= button_to "", billing.invoice_invoice_item_path(item.billing_invoice_id, item.id), method: :delete, class: "btn btn-sm btn-danger bi bi-trash", form: { data: { turbo_stream: true } } %>
+            <% end %>
           </div>
         </td>
       </tr>

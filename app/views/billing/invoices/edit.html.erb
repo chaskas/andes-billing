@@ -2,18 +2,22 @@
 
 <div class="d-flex align-items-center">
   <h1>Edit Invoice</h1>
-  <%= button_to "", @invoice, method: :delete, class: "btn btn-sm btn-danger bi bi-trash ms-3" %>
-  <%= link_to "Back", invoices_path, class: "btn btn-sm btn-dark ms-auto" %>
+  <%= button_to "", billing.invoice_path(@invoice), method: :delete, class: "btn btn-sm btn-danger bi bi-trash ms-3" %>
+  <%= link_to "Back", billing.invoices_path, class: "btn btn-sm btn-dark ms-auto" %>
 
 </div>
 
 <%= render "form", invoice: @invoice %>
 
-<%= turbo_frame_tag "new_invoice_item", src: new_invoice_invoice_item_path(@invoice), target: "_top" %>
+<%= turbo_frame_tag "new_invoice_item", src: billing.new_invoice_invoice_item_path(@invoice) %>
 
-<div id="invoice_items" class="my-5">
-  <h2>Items</h2>
-  <%= render "billing/invoice_items/invoice_items", invoice_items: @invoice.invoice_items %>
-</div>
+<%= turbo_frame_tag "invoice_items" do %>
+  <div class="my-5">
+    <h2>Items</h2>
+    <%= render "billing/invoice_items/invoice_items", invoice_items: @invoice.invoice_items %>
+  </div>
+<% end %>
 
-<%= render "totals", invoice: @invoice %>
+<%= turbo_frame_tag "invoice_totals" do %>
+  <%= render "totals", invoice: @invoice %>
+<% end %>
