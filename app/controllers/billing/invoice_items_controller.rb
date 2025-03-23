@@ -76,10 +76,14 @@ module Billing
       respond_to do |format|
         format.html { redirect_to billing.edit_invoice_path(@invoice), notice: "Item was successfully destroyed.", status: :see_other }
         format.turbo_stream do
-          # Use a simpler approach with a single render
-          render turbo_stream: turbo_stream.update("invoice_items",
-            partial: "billing/invoice_items/invoice_items",
-            locals: { invoice_items: @invoice.invoice_items })
+          render turbo_stream: [
+                # Update the invoice items list
+                turbo_stream.update("invoice_items", partial: "billing/invoice_items/invoice_items", locals: { invoice_items: @invoice.invoice_items }),
+                # Update the invoice totals
+                turbo_stream.update("invoice_totals", partial: "billing/invoices/totals", locals: { invoice: @invoice }),
+                # Add a flash message
+                turbo_stream.prepend("flash", partial: "shared/flash", locals: { flash: { notice: "Item was successfully removed." } })
+              ]
         end
       end
     end
