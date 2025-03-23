@@ -14,6 +14,7 @@ module Billing
     }
 
     before_save :set_gross_total, :set_number
+    after_save :update_tax_amount_if_tax_rate_changed
 
     def set_net_total
       self.net_total = self.invoice_items.sum(:unit_price) || 0
@@ -31,6 +32,13 @@ module Billing
     end
 
     private
+      def update_tax_amount_if_tax_rate_changed
+        if saved_change_to_tax_rate?
+          self.set_tax_amount
+          self.gross_total = self.net_total + self.tax_amount.to_d
+          self.save
+        end
+      end
 
       def get_last_number_for_year(year)
         last_invoice = Invoice.where("extract(year from issue_date) = ?", year).order(:number).last
