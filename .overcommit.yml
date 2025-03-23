@@ -40,3 +40,6 @@ PreCommit:
 PrePush:
   Minitest:
     enabled: true
+    flags: ['--verbose']
+    env:
+      HEADLESS: 'true'
