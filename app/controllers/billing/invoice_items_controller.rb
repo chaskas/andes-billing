@@ -32,8 +32,6 @@ module Billing
             format.turbo_stream do
               # Create a new empty invoice item for the form
               @new_invoice_item = Billing::InvoiceItem.new(billing_invoice_id: @invoice.id)
-              # Explicitly set date to nil to ensure it's empty in the form
-              @new_invoice_item.date = nil
 
               # Render multiple turbo stream actions
               render turbo_stream: [
