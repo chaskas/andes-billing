@@ -6,8 +6,6 @@ module Billing
     def new
       # Create a completely new invoice item to ensure no validation errors are carried over
       @invoice_item = Billing::InvoiceItem.new(billing_invoice_id: @invoice.id)
-      # Explicitly set date to nil to ensure it's empty in the form
-      # @invoice_item.date = nil
     end
 
     # POST /invoice_items
