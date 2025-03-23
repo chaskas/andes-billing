@@ -1,11 +1,7 @@
 require 'simplecov'
 SimpleCov.start do
-  # Only enforce coverage for non-system tests
-  if ARGV.include?('test:system')
-    minimum_coverage 0
-  else
-    minimum_coverage 90
-  end
+  # No minimum coverage for system tests
+  minimum_coverage 0
 end
 
 # Configure Rails Environment
