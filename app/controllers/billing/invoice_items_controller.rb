@@ -52,22 +52,9 @@ module Billing
             format.turbo_stream { redirect_to billing.edit_invoice_path(@invoice), notice: "Item was successfully created." }
           end
         else
-          # If the date parameter is present but validation still failed,
-          # manually remove the date error from the errors collection
-          if date_present
-            # Remove the date error from the errors collection
-            @invoice_item.errors.delete(:date)
-
-            # Log for debugging
-            Rails.logger.debug("Date parameter is present, removing date error")
-            Rails.logger.debug("Errors after removal: #{@invoice_item.errors.full_messages}")
-          end
 
           format.html { render :new, status: :unprocessable_entity }
           format.turbo_stream do
-            # Render the form with validation errors
-            # Ensure that the form fields are populated with the values from the failed submission
-            # We need to explicitly pass the invoice_item with errors to the partial
             render turbo_stream: turbo_stream.replace(
               "new_invoice_item",
               template: "billing/invoice_items/new",
@@ -114,40 +101,6 @@ module Billing
           params.require(:invoice_item).permit(:date, :duration, :kind, :unit_price)
         else
           params.permit(:date, :duration, :kind, :unit_price)
-        end
-
-        # Ensure date is properly formatted
-        if permitted_params[:date].present?
-          begin
-            # Try to parse the date
-            date_str = permitted_params[:date].to_s
-            # Log the date string for debugging
-            Rails.logger.debug("Date string: #{date_str}")
-
-            # Handle different date formats
-            if date_str.match?(/\d{4}-\d{2}-\d{2}/)
-              # ISO format (YYYY-MM-DD)
-              permitted_params[:date] = Date.parse(date_str)
-            elsif date_str.match?(/\d{2}\/\d{2}\/\d{4}/)
-              # US format (MM/DD/YYYY)
-              parts = date_str.split('/')
-              permitted_params[:date] = Date.new(parts[2].to_i, parts[0].to_i, parts[1].to_i)
-            elsif date_str.match?(/\d{2}\.\d{2}\.\d{4}/)
-              # European format (DD.MM.YYYY)
-              parts = date_str.split('.')
-              permitted_params[:date] = Date.new(parts[2].to_i, parts[1].to_i, parts[0].to_i)
-            else
-              # Try standard parsing
-              permitted_params[:date] = Date.parse(date_str)
-            end
-
-            # Log the parsed date for debugging
-            Rails.logger.debug("Parsed date: #{permitted_params[:date]}")
-          rescue ArgumentError => e
-            # If parsing fails, log the error and set to nil to trigger validation error
-            Rails.logger.debug("Date parsing error: #{e.message}")
-            permitted_params[:date] = nil
-          end
         end
 
         permitted_params
