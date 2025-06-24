@@ -6,6 +6,9 @@ SimpleCov.start do
   else
     minimum_coverage 90
   end
+  add_filter 'test'
+  add_filter 'config'
+  add_filter 'lib'
 end
 
 # Configure Rails Environment
