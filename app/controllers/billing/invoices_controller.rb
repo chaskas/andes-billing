@@ -12,6 +12,8 @@ module Billing
     # GET /invoices/new
     def new
       @invoice = Invoice.new
+      @invoice.issue_date = Date.today
+      @invoice.number = Invoice.get_last_number_for_year(Date.today.year) + 1
     end
 
     def show
@@ -58,7 +60,10 @@ module Billing
 
       # Only allow a list of trusted parameters through.
       def invoice_params
-        params.require(:invoice).permit(:issue_date, :billing_issuer_id, :billing_recipient_id, :tax_rate)
+        permitted = [:issue_date, :billing_issuer_id, :billing_recipient_id, :tax_rate]
+        # Only allow number to be updated for existing records
+        permitted << :number unless params[:action] == 'create'
+        params.require(:invoice).permit(permitted)
       end
 
       def get_issuers

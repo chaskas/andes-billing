@@ -15,6 +15,10 @@
       <%= form.label :issue_date, "Issue Date", class: "col-form-label fw-bold" %>
       <%= form.date_field :issue_date, class: "form-control" %>
     </div>
+    <div class="col-2">
+      <%= form.label :number, class: "col-form-label fw-bold" %>
+      <%= form.number_field :number, class: "form-control" %>
+    </div>
     <div class="col">
       <%= form.label :tax_rate, "Tax Rate", class: "col-form-label fw-bold" %>
       <%= form.select :tax_rate, Billing::Invoice.tax_rates.keys.map { |tax_rate| [tax_rate.humanize, tax_rate] }, {}, class: "form-select" %>

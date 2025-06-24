@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_20_151402) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_23_182759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -50,8 +50,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_151402) do
     t.decimal "gross_total", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "year"
     t.index ["billing_issuer_id"], name: "index_billing_invoices_on_billing_issuer_id"
     t.index ["billing_recipient_id"], name: "index_billing_invoices_on_billing_recipient_id"
+    t.index ["number", "year"], name: "index_billing_invoices_on_number_and_year", unique: true
   end
 
   create_table "billing_issuers", force: :cascade do |t|

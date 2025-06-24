@@ -13,8 +13,9 @@ module Billing
       reduced: 7
     }
 
-    before_save :set_gross_total, :set_number
+    before_save :set_gross_total
     after_save :update_tax_amount_if_tax_rate_changed
+    before_create :assign_invoice_number
 
     def set_net_total
       self.net_total = self.invoice_items.sum(:unit_price) || 0
@@ -31,6 +32,15 @@ module Billing
       self.gross_total = self.net_total + self.tax_amount.to_d
     end
 
+    def self.get_last_number_for_year(year)
+      last_invoice = Invoice.where("extract(year from issue_date) = ?", year).order(:number).last
+      if last_invoice
+        last_invoice.number
+      else
+        0
+      end
+    end
+
     private
       def update_tax_amount_if_tax_rate_changed
         if saved_change_to_tax_rate?
@@ -40,17 +50,10 @@ module Billing
         end
       end
 
-      def get_last_number_for_year(year)
-        last_invoice = Invoice.where("extract(year from issue_date) = ?", year).order(:number).last
-        if last_invoice
-          last_invoice.number
-        else
-          0
-        end
-      end
-
-      def set_number
-        self.number = get_last_number_for_year(self.issue_date.year) + 1
+      def assign_invoice_number
+        year = self.issue_date.year
+        last_number = Billing::Invoice.get_last_number_for_year(year)
+        self.number = last_number.to_i + 1
       end
   end
 end
