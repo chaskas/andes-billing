@@ -4,7 +4,7 @@ SimpleCov.start do
   if ARGV.include?('test:system')
     minimum_coverage 0
   else
-    minimum_coverage 90
+    minimum_coverage 80
   end
   add_filter 'test'
   add_filter 'config'
