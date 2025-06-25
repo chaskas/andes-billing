@@ -13,7 +13,6 @@ gem 'sqlite3'
 gem 'sprockets-rails'
 
 # PDF generation
-gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
