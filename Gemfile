@@ -12,6 +12,10 @@ gem 'sqlite3'
 
 gem 'sprockets-rails'
 
+# PDF generation
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
 gem 'cssbundling-rails', '~> 1.4'

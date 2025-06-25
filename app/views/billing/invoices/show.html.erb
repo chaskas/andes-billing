@@ -1,72 +1,95 @@
 <div class="d-flex mb-5">
-  <%= link_to "Back", invoices_path, class: "btn btn-sm btn-dark ms-auto" %>
+  <%= link_to "Back", invoices_path, class: "btn btn-sm btn-dark ms-auto me-2" %>
+  <%= button_tag "Download PDF", id: "download-pdf-btn", class: "btn btn-sm btn-primary" %>
 </div>
 
-<div class="d-flex justify-content-between mb-3">
-  <h1>Invoice</h1>
-  <div class="text-end">
-    <strong>Date:</strong>
-    <p><%= @invoice.issue_date&.to_fs(:day_month_year) %></p>
-    <strong>Number:</strong>
-    <p><%= "#{@invoice.number} - #{@invoice.issue_date.year}" %></p>
-  </div>
-</div>
+<div id="invoice-wrapper">
+    <div class="d-flex justify-content-between mb-3">
+      <h1>Invoice</h1>
+      <div class="text-end">
+        <strong>Date:</strong>
+        <p><%= @invoice.issue_date&.to_fs(:day_month_year) %></p>
+        <strong>Number:</strong>
+        <p><%= "#{@invoice.number} - #{@invoice.issue_date.year}" %></p>
+      </div>
+    </div>
 
-<div class="d-flex justify-content-between">
-  <div class="text-start">
-    <h6>Rechnungsempfängers</h6>
-    <h3 class="mb-3"><%= @invoice.recipient.name %></h3>
-    <p class="my-1"><%= @invoice.recipient.address %></p>
-    <p class="my-1"><%= @invoice.recipient.phone %></p>
-    <p class="mt-1 mb-2"><%= @invoice.recipient.email %></p>
-    <strong>Steuernummer: </strong>
-    <p><%= @invoice.recipient.tax_number %></p>
-  </div>
-  <div class="text-end">
-    <h6>Rechnungssteller</h6>
-    <h3 class="mb-3"><%= @invoice.issuer.name %></h3>
-    <p class="my-1"><%= @invoice.issuer.address %></p>
-    <p class="my-1"><%= @invoice.issuer.phone %></p>
-    <p class="mt-1 mb-2"><%= @invoice.issuer.email %></p>
-    <strong>Steuernummer: </strong>
-    <p><%= @invoice.issuer.tax_number %></p>
-  </div>
-</div>
+    <div class="d-flex justify-content-between">
+      <div class="text-start">
+        <h6>Rechnungsempfängers</h6>
+        <h3 class="mb-3"><%= @invoice.recipient.name %></h3>
+        <p class="my-1"><%= @invoice.recipient.address %></p>
+        <p class="my-1"><%= @invoice.recipient.phone %></p>
+        <p class="mt-1 mb-2"><%= @invoice.recipient.email %></p>
+        <strong>Steuernummer: </strong>
+        <p><%= @invoice.recipient.tax_number %></p>
+      </div>
+      <div class="text-end">
+        <h6>Rechnungssteller</h6>
+        <h3 class="mb-3"><%= @invoice.issuer.name %></h3>
+        <p class="my-1"><%= @invoice.issuer.address %></p>
+        <p class="my-1"><%= @invoice.issuer.phone %></p>
+        <p class="mt-1 mb-2"><%= @invoice.issuer.email %></p>
+        <strong>Steuernummer: </strong>
+        <p><%= @invoice.issuer.tax_number %></p>
+      </div>
+    </div>
 
-<table class="table table-sm mt-4">
-  <thead>
-    <tr>
-      <th scope="col" class="text-center">Date</th>
-      <th scope="col" class="text-center">Duration</th>
-      <th scope="col" class="text-center">Kind</th>
-      <th scope="col" class="text-end">Unit Price</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @invoice.invoice_items.sort_by { |i| i.date }.each do |item| %>
-    <tr>
-      <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
-      <td class="text-center"><%= item.duration %></td>
-      <td class="text-center"><%= item.kind %></td>
-      <td class="text-end"><%= number_to_currency(item.unit_price, unit: "€", separator: ",", delimiter: ".") %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<div class="row justify-content-end">
-  <div class="col-lg-4">
-    <table class="table">
+    <table class="table table-sm mt-4">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">Date</th>
+          <th scope="col" class="text-center">Duration</th>
+          <th scope="col" class="text-center">Kind</th>
+          <th scope="col" class="text-end">Unit Price</th>
+        </tr>
+      </thead>
       <tbody>
-      <tr>
-        <td class="text-start"><strong>Net Total</strong></td><td class="text-end"><%= number_to_currency @invoice.net_total %></td>
-      </tr>
-      <tr>
-        <td class="text-start"><strong>Tax Total</strong></td><td class="text-end"><%= number_to_currency @invoice.tax_amount %></td>
-      </tr>
-      <tr>
-        <td class="text-start"><strong>Gross Total</strong></td><td class="text-end"><%= number_to_currency @invoice.gross_total %></td>
-      </tr>
+      <% @invoice.invoice_items.sort_by { |i| i.date }.each do |item| %>
+        <tr>
+          <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
+          <td class="text-center"><%= item.duration %></td>
+          <td class="text-center"><%= item.kind %></td>
+          <td class="text-end"><%= number_to_currency(item.unit_price, unit: "€", separator: ",", delimiter: ".") %></td>
+        </tr>
+      <% end %>
+      </tbody>
     </table>
-  </div>
+
+    <div class="row justify-content-end">
+      <div class="col-lg-4">
+        <table class="table">
+          <tbody>
+          <tr>
+            <td class="text-start"><strong>Net Total</strong></td><td class="text-end"><%= number_to_currency @invoice.net_total %></td>
+          </tr>
+          <tr>
+            <td class="text-start"><strong>Tax Total</strong></td><td class="text-end"><%= number_to_currency @invoice.tax_amount %></td>
+          </tr>
+          <tr>
+            <td class="text-start"><strong>Gross Total</strong></td><td class="text-end"><%= number_to_currency @invoice.gross_total %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+  document.getElementById('download-pdf-btn').addEventListener('click', function() {
+    // Element to convert to PDF
+    const element = document.getElementById('invoice-wrapper');
+
+    // Configuration
+    const options = {
+      margin: 10,
+      filename: 'Invoice_<%= @invoice.number %>_<%= @invoice.issue_date.year %>.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Generate PDF
+    html2pdf().from(element).set(options).save();
+  });
+</script>
