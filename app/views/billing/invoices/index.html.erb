@@ -25,13 +25,84 @@
       <td class="text-center"><%= number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".") %></td>
       <td>
         <div class="d-flex justify-content-center">
-          <%= button_to "", invoice, method: :get, class: "btn btn-sm btn-primary bi bi-eye me-1" %>
-          <%= button_to "", edit_invoice_path(invoice), method: :get, class: "btn btn-sm btn-success bi bi-pencil me-1" %>
-          <%= button_to "", invoice, method: :delete, class: "btn btn-sm btn-danger bi bi-trash" %>
+          <%= link_to "", invoice_path(invoice), class: "btn btn-sm btn-info bi bi-eye me-2" %>
+          <%= link_to "", edit_invoice_path(invoice), class: "btn btn-sm btn-warning bi bi-pencil me-2" %>
+          <%= link_to "", invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger bi bi-trash me-2" %>
+          <%= link_to "", invoice_path(invoice), class: "btn btn-sm btn-primary bi bi-file-pdf pdf-download-btn",
+                data: {
+                  invoice_id: invoice.id,
+                  invoice_number: invoice.number,
+                  invoice_year: invoice.issue_date.year
+                } %>
         </div>
       </td>
     </tr>
   <% end %>
-
   </tbody>
 </table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+  // Helper function to set up event listeners
+  function setupPdfButtons() {
+    // Remove any existing event listeners first
+    document.querySelectorAll('.pdf-download-btn').forEach(function(button) {
+      button.removeEventListener('click', handlePdfButtonClick);
+      // Add the event listener
+      button.addEventListener('click', handlePdfButtonClick);
+    });
+  }
+
+  // Handler function for the click event
+  function handlePdfButtonClick(event) {
+    event.preventDefault();
+
+    const invoiceId = this.dataset.invoiceId;
+    const invoiceNumber = this.dataset.invoiceNumber;
+    const invoiceYear = this.dataset.invoiceYear;
+
+    // Get the invoice content by loading the show page in a hidden iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.position = 'absolute';
+    iframe.style.top = '-9999px';
+    document.body.appendChild(iframe);
+
+    iframe.onload = function() {
+      // When iframe is loaded, get the invoice wrapper HTML
+      const invoiceWrapper = iframe.contentDocument.getElementById('invoice-wrapper');
+      if (invoiceWrapper) {
+        // Apply some additional styling for PDF generation
+        const clonedWrapper = invoiceWrapper.cloneNode(true);
+
+        // PDF options
+        const options = {
+          margin: 10,
+          filename: `Invoice_${invoiceNumber}_${invoiceYear}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Generate PDF
+        html2pdf().from(clonedWrapper).set(options).save();
+
+        // Clean up
+        setTimeout(function() {
+          document.body.removeChild(iframe);
+        }, 1000);
+      }
+    };
+
+    // Load the invoice show page in the iframe
+    iframe.src = `/billing/invoices/${invoiceId}`;
+  }
+
+  // Set up the buttons on initial load
+  document.addEventListener('DOMContentLoaded', setupPdfButtons);
+
+  // Re-setup buttons when Turbo loads new content
+  document.addEventListener('turbo:load', setupPdfButtons);
+  document.addEventListener('turbo:render', setupPdfButtons);
+</script>
