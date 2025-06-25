@@ -66,6 +66,7 @@ module Billing
       assert_match /invoice_items/, @response.body
       assert_match /invoice_totals/, @response.body
       assert_match /new_invoice_item/, @response.body
+      assert_match /flash/, @response.body
     end
 
     test "should create invoice_item with turbo stream format without turbo_stream parameter" do
@@ -144,6 +145,7 @@ module Billing
       end
 
       assert_redirected_to edit_invoice_url(invoice)
+      assert_equal "Item was successfully destroyed.", flash[:notice]
     end
 
     test "should destroy invoice_item with turbo stream format" do
@@ -156,6 +158,7 @@ module Billing
       assert_match /turbo-stream/, @response.body
       assert_match /invoice_items/, @response.body
       assert_match /invoice_totals/, @response.body
+      assert_match /flash/, @response.body
       assert_match /Item was successfully removed/, @response.body
     end
   end
