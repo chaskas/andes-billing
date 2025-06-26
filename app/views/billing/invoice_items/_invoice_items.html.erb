@@ -14,6 +14,7 @@
         <th scope="col" class="text-center">Date</th>
         <th scope="col" class="text-center">Duration</th>
         <th scope="col" class="text-center">Kind</th>
+        <th scope="col">Description</th>
         <th scope="col" class="text-end">Unit Price</th>
         <th scope="col" class="text-center">Options</th>
       </tr>
@@ -25,6 +26,7 @@
           <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
           <td class="text-center"><%= item.duration %></td>
           <td class="text-center"><%= item.kind %></td>
+          <td><%= item.description %></td>
           <td class="text-end"><%= number_to_currency(item.unit_price, unit: "€", separator: ",", delimiter: ".") %></td>
           <td class="text-center">
             <div class="d-inline-flex">

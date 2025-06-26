@@ -40,15 +40,15 @@
         <tr>
           <th scope="col" class="text-center">Date</th>
           <th scope="col" class="text-center">Duration</th>
-          <th scope="col" class="text-center">Kind</th>
+          <th scope="col">Description</th>
         </tr>
       </thead>
       <tbody>
       <% @invoice.invoice_items.sort_by { |i| i.date }.each do |item| %>
         <tr>
-          <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
-          <td class="text-center"><%= item.duration %></td>
-          <td class="text-center"><%= item.kind %></td>
+          <th class="col-sm-2 text-center"><%= item.date&.to_fs(:day_month_year) %></th>
+          <td class="col-sm-2 text-center"><%= item.duration %></td>
+          <td><%= item.description %></td>
         </tr>
       <% end %>
       </tbody>

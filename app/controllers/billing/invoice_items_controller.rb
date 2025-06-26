@@ -100,7 +100,7 @@ module Billing
       def invoice_item_params
         # Handle both nested and non-nested parameters
         permitted_params = if params[:invoice_item].present?
-          params.require(:invoice_item).permit(:date, :duration, :kind, :unit_price)
+          params.require(:invoice_item).permit(:date, :duration, :kind, :unit_price, :description)
         else
           params.permit(:date, :duration, :kind, :unit_price)
         end
