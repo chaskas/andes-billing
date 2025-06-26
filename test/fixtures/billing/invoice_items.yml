@@ -6,6 +6,7 @@ one:
   duration: 1
   kind: 0
   unit_price: 10
+  description: "First invoice item description"
 
 two:
   invoice: two
@@ -13,3 +14,4 @@ two:
   duration: 1
   kind: 1
   unit_price: 9.99
+  description: "Second invoice item description"
