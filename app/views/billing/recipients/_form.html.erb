@@ -1,9 +1,8 @@
-<%= form_with(model: recipient) do |form| %>
+<%= form_with(model: recipient, html: { class: "form-andes" }) do |form| %>
   <% if recipient.errors.any? %>
-    <div style="color: red">
-      <h4><%= pluralize(recipient.errors.count, "error") %> prohibited this recipient from being saved:</h4>
-
-      <ul>
+    <div class="alert-andes alert-andes--error mb-3">
+      <strong><%= pluralize(recipient.errors.count, "error") %> prohibited this recipient from being saved:</strong>
+      <ul class="mb-0 mt-1">
         <% recipient.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,38 +10,35 @@
     </div>
   <% end %>
 
-  <div class="row mb-3 justify-content-md-left">
-    <div class="col-2">
-      <%= form.label :tax_number, "Tax Number", class: "col-form-label fw-bold" %>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <%= form.label :tax_number, "Tax Number", class: "form-label" %>
       <%= form.text_field :tax_number, class: "form-control" %>
     </div>
-
     <div class="col">
-      <%= form.label :name, class: "col-form-label fw-bold" %>
+      <%= form.label :name, class: "form-label" %>
       <%= form.text_field :name, class: "form-control" %>
     </div>
   </div>
 
-  <div class="row mb-3 justify-content-md-left">
-    <div class="col-2">
-      <%= form.label :phone, class: "col-form-label fw-bold" %>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <%= form.label :phone, class: "form-label" %>
       <%= form.text_field :phone, class: "form-control" %>
     </div>
-
     <div class="col">
-      <%= form.label :address, class: "col-form-label fw-bold" %>
+      <%= form.label :address, class: "form-label" %>
       <%= form.text_field :address, class: "form-control" %>
     </div>
   </div>
 
-  <div class="row mb-3 justify-content-md-left">
-    <div class="col">
-      <%= form.label :email, class: "form-label fw-bold" %>
-      <%= form.text_field :email, class: "form-control" %>
-    </div>
+  <div class="mb-3">
+    <%= form.label :email, class: "form-label" %>
+    <%= form.text_field :email, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit :Submit, class: "btn btn-success mt-3 mb-3" %>
+  <div class="mt-4">
+    <%= form.submit (recipient.persisted? ? "Save" : "Create"), class: "btn btn-andes" %>
+    <%= link_to "Cancel", recipients_path, class: "btn btn-andes-outline ms-2" %>
   </div>
 <% end %>

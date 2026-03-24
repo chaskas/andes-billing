@@ -1,34 +1,48 @@
-<% content_for :title, "Issuers" %>
+<% content_for :title, "Recipients" %>
 
-<div class="d-flex align-items-center">
-  <h1>Recipients</h1>
-  <%= button_to "", new_recipient_path, method: :get, class: "btn btn-sm btn-primary bi bi-plus ms-3 fs-4" %>
+<div class="page-header">
+  <div class="d-flex align-items-baseline">
+    <h1 class="page-header__title">Recipients</h1>
+    <span class="page-header__count"><%= @recipients.size %> total</span>
+  </div>
+  <%= link_to new_recipient_path, class: "btn btn-andes" do %>
+    <i class="bi bi-plus"></i> New Recipient
+  <% end %>
 </div>
 
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th scope="col">TAX Number</th>
-    <th scope="col">Name</th>
-    <th scope="col">Phone</th>
-    <th scope="col">Options</th>
-  </tr>
-  </thead>
-  <tbody>
-
+<% if @recipients.any? %>
   <% @recipients.each do |recipient| %>
-    <tr>
-      <td><%= recipient.tax_number %></td>
-      <td><%= recipient.name %></td>
-      <td><%= recipient.phone %></td>
-      <td>
-        <div class="d-inline-flex">
-          <%= button_to "", edit_recipient_path(recipient), method: :get, class: "btn btn-sm btn-success bi bi-pencil me-1" %>
-          <%= button_to "", recipient, method: :delete, class: "btn btn-sm btn-danger bi bi-trash" %>
+    <div class="list-card">
+      <div class="list-card__info">
+        <div class="list-card__title"><%= recipient.name %></div>
+        <div class="list-card__meta">
+          <i class="bi bi-hash"></i> <%= recipient.tax_number %>
+          <% if recipient.phone.present? %>
+            &middot; <i class="bi bi-telephone"></i> <%= recipient.phone %>
+          <% end %>
+          <% if recipient.email.present? %>
+            &middot; <i class="bi bi-envelope"></i> <%= recipient.email %>
+          <% end %>
         </div>
-      </td>
-    </tr>
+      </div>
+      <div class="list-card__actions">
+        <%= link_to edit_recipient_path(recipient), class: "btn btn-andes-outline btn-andes-sm" do %>
+          <i class="bi bi-pencil"></i> Edit
+        <% end %>
+        <%= button_to recipient, method: :delete, class: "btn btn-andes-danger btn-andes-sm", data: { turbo_confirm: "Are you sure?" } do %>
+          <i class="bi bi-trash"></i>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-
-  </tbody>
-</table>
+<% else %>
+  <div class="card-andes p-4">
+    <div class="empty-state">
+      <div class="empty-state__icon"><i class="bi bi-people"></i></div>
+      <div class="empty-state__text">No recipients yet.</div>
+      <%= link_to new_recipient_path, class: "btn btn-andes btn-andes-sm" do %>
+        <i class="bi bi-plus"></i> Add Recipient
+      <% end %>
+    </div>
+  </div>
+<% end %>

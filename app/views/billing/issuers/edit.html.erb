@@ -1,10 +1,15 @@
-<% content_for :title, "Edit issuer" %>
+<% content_for :title, "Edit Issuer" %>
 
-<div class="d-flex align-items-center">
-  <h1>Edit Issuer</h1>
-  <%= button_to "", @issuer, method: :delete, class: "btn btn-sm btn-danger bi bi-trash ms-3" %>
-  <%= link_to "Back", issuers_path, class: "btn btn-sm btn-dark ms-auto" %>
+<%= link_to issuers_path, class: "back-link" do %>
+  <i class="bi bi-arrow-left"></i> Issuers
+<% end %>
 
+<div class="card-andes p-4">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0">Edit Issuer</h1>
+    <%= button_to @issuer, method: :delete, class: "btn btn-andes-danger btn-andes-sm", data: { turbo_confirm: "Are you sure?" } do %>
+      <i class="bi bi-trash"></i> Delete
+    <% end %>
+  </div>
+  <%= render "form", issuer: @issuer %>
 </div>
-
-<%= render "form", issuer: @issuer %>

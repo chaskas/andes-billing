@@ -1,8 +1,10 @@
-<% content_for :title, "New recipient" %>
+<% content_for :title, "New Recipient" %>
 
-<div class="d-flex align-items-center">
-  <h1>New Recipient</h1>
-  <%= link_to "Back", recipients_path, class: "btn btn-sm btn-dark ms-auto" %>
+<%= link_to recipients_path, class: "back-link" do %>
+  <i class="bi bi-arrow-left"></i> Recipients
+<% end %>
+
+<div class="card-andes p-4">
+  <h1 class="mb-4">New Recipient</h1>
+  <%= render "form", recipient: @recipient %>
 </div>
-
-<%= render "form", recipient: @recipient %>

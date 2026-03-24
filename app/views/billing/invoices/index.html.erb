@@ -1,59 +1,70 @@
 <% content_for :title, "Invoices" %>
 
-<div class="d-flex align-items-center">
-  <h1>Invoices</h1>
-  <%= button_to "", new_invoice_path, method: :get, class: "btn btn-sm btn-primary bi bi-plus ms-3 fs-4" %>
+<div class="page-header">
+  <div class="d-flex align-items-baseline">
+    <h1 class="page-header__title">Invoices</h1>
+    <span class="page-header__count"><%= @invoices.size %> total</span>
+  </div>
+  <%= link_to new_invoice_path, class: "btn btn-andes" do %>
+    <i class="bi bi-plus"></i> New Invoice
+  <% end %>
 </div>
 
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th scope="col" class="text-center">Year</th>
-    <th scope="col" class="text-center">Number</th>
-    <th scope="col" class="text-center">Recipient</th>
-    <th scope="col" class="text-center">Total</th>
-    <th scope="col" class="text-center">Options</th>
-  </tr>
-  </thead>
-  <tbody>
-
+<% if @invoices.any? %>
   <% @invoices.each do |invoice| %>
-    <tr>
-      <td class="text-center"><%= invoice.issue_date.year %></td>
-      <td class="text-center"><%= invoice.number %></td>
-      <td class="text-center"><%= invoice.recipient.name %></td>
-      <td class="text-center"><%= number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".") %></td>
-      <td>
-        <div class="d-flex justify-content-center">
-          <%= link_to "", invoice_path(invoice), class: "btn btn-sm btn-info bi bi-eye me-2" %>
-          <%= link_to "", edit_invoice_path(invoice), class: "btn btn-sm btn-warning bi bi-pencil me-2" %>
-          <%= link_to "", invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger bi bi-trash me-2" %>
-          <%= link_to "", invoice_path(invoice), class: "btn btn-sm btn-primary bi bi-file-pdf pdf-download-btn",
-                data: {
-                  invoice_id: invoice.id,
-                  invoice_number: invoice.number,
-                  invoice_year: invoice.issue_date.year
-                } %>
+    <div class="list-card">
+      <div class="list-card__info">
+        <div class="list-card__title">
+          <%= link_to "Invoice ##{invoice.number} — #{invoice.issue_date.year}", invoice_path(invoice) %>
         </div>
-      </td>
-    </tr>
+        <div class="list-card__meta">
+          <i class="bi bi-person"></i> <%= invoice.recipient.name %>
+          &middot; <i class="bi bi-calendar3"></i> <%= invoice.issue_date&.to_fs(:day_month_year) %>
+          &middot; <i class="bi bi-cash-stack"></i> <%= number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".") %>
+        </div>
+      </div>
+      <div class="list-card__actions">
+        <%= link_to invoice_path(invoice), class: "btn btn-andes-outline btn-andes-sm" do %>
+          <i class="bi bi-eye"></i> View
+        <% end %>
+        <%= link_to edit_invoice_path(invoice), class: "btn btn-andes-outline btn-andes-sm" do %>
+          <i class="bi bi-pencil"></i> Edit
+        <% end %>
+        <%= link_to "#", class: "btn btn-andes-outline btn-andes-sm pdf-download-btn",
+              data: {
+                invoice_id: invoice.id,
+                invoice_number: invoice.number,
+                invoice_year: invoice.issue_date.year
+              } do %>
+          <i class="bi bi-file-pdf"></i> PDF
+        <% end %>
+        <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-andes-danger btn-andes-sm" do %>
+          <i class="bi bi-trash"></i>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-</table>
+<% else %>
+  <div class="card-andes p-4">
+    <div class="empty-state">
+      <div class="empty-state__icon"><i class="bi bi-receipt"></i></div>
+      <div class="empty-state__text">No invoices yet.</div>
+      <%= link_to new_invoice_path, class: "btn btn-andes btn-andes-sm" do %>
+        <i class="bi bi-plus"></i> Create Invoice
+      <% end %>
+    </div>
+  </div>
+<% end %>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <script>
-  // Helper function to set up event listeners
   function setupPdfButtons() {
-    // Remove any existing event listeners first
     document.querySelectorAll('.pdf-download-btn').forEach(function(button) {
       button.removeEventListener('click', handlePdfButtonClick);
-      // Add the event listener
       button.addEventListener('click', handlePdfButtonClick);
     });
   }
 
-  // Handler function for the click event
   function handlePdfButtonClick(event) {
     event.preventDefault();
 
@@ -61,7 +72,6 @@
     const invoiceNumber = this.dataset.invoiceNumber;
     const invoiceYear = this.dataset.invoiceYear;
 
-    // Get the invoice content by loading the show page in a hidden iframe
     const iframe = document.createElement('iframe');
     iframe.style.width = '0';
     iframe.style.height = '0';
@@ -70,13 +80,10 @@
     document.body.appendChild(iframe);
 
     iframe.onload = function() {
-      // When iframe is loaded, get the invoice wrapper HTML
       const invoiceWrapper = iframe.contentDocument.getElementById('invoice-wrapper');
       if (invoiceWrapper) {
-        // Apply some additional styling for PDF generation
         const clonedWrapper = invoiceWrapper.cloneNode(true);
 
-        // PDF options
         const options = {
           margin: 10,
           filename: `Invoice_${invoiceNumber}_${invoiceYear}.pdf`,
@@ -85,24 +92,18 @@
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        // Generate PDF
         html2pdf().from(clonedWrapper).set(options).save();
 
-        // Clean up
         setTimeout(function() {
           document.body.removeChild(iframe);
         }, 1000);
       }
     };
 
-    // Load the invoice show page in the iframe
     iframe.src = `/billing/invoices/${invoiceId}`;
   }
 
-  // Set up the buttons on initial load
   document.addEventListener('DOMContentLoaded', setupPdfButtons);
-
-  // Re-setup buttons when Turbo loads new content
   document.addEventListener('turbo:load', setupPdfButtons);
   document.addEventListener('turbo:render', setupPdfButtons);
 </script>

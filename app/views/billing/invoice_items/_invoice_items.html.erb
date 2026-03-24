@@ -1,22 +1,27 @@
 <% content_for :title, "Items" %>
 
-<div class="my-5">
+<div class="billing-section-header">
   <h2>Items</h2>
+</div>
 
-  <% unless invoice_items.count > 0 %>
-    <p class="text-center">
-      No invoices items found.
-    </p>
-  <% else %>
-    <table class="table table-hover">
+<% unless invoice_items.count > 0 %>
+  <div class="card-andes p-4">
+    <div class="empty-state">
+      <div class="empty-state__icon"><i class="bi bi-list-check"></i></div>
+      <div class="empty-state__text">No invoice items yet. Add items using the form above.</div>
+    </div>
+  </div>
+<% else %>
+  <div class="card-andes">
+    <table class="table-andes">
       <thead>
       <tr>
-        <th scope="col" class="text-center">Date</th>
-        <th scope="col" class="text-center">Duration</th>
-        <th scope="col" class="text-center">Kind</th>
-        <th scope="col">Description</th>
-        <th scope="col" class="text-end">Unit Price</th>
-        <th scope="col" class="text-center">Options</th>
+        <th class="text-center">Date</th>
+        <th class="text-center">Duration</th>
+        <th class="text-center">Kind</th>
+        <th>Description</th>
+        <th class="text-end">Unit Price</th>
+        <th class="text-center">Options</th>
       </tr>
       </thead>
       <tbody>
@@ -29,16 +34,16 @@
           <td><%= item.description %></td>
           <td class="text-end"><%= number_to_currency(item.unit_price, unit: "€", separator: ",", delimiter: ".") %></td>
           <td class="text-center">
-            <div class="d-inline-flex">
-              <% if item.id.present? %>
-                <%= button_to "", billing.invoice_invoice_item_path(item.billing_invoice_id, item.id), method: :delete, class: "btn btn-sm btn-danger bi bi-trash", form: { data: { turbo_stream: true } } %>
+            <% if item.id.present? %>
+              <%= button_to billing.invoice_invoice_item_path(item.billing_invoice_id, item.id), method: :delete, class: "btn btn-andes-danger btn-andes-sm", form: { data: { turbo_stream: true } } do %>
+                <i class="bi bi-trash"></i>
               <% end %>
-            </div>
+            <% end %>
           </td>
         </tr>
       <% end %>
 
       </tbody>
     </table>
-  <% end %>
-</div>
+  </div>
+<% end %>

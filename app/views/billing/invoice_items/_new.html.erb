@@ -1,9 +1,9 @@
-<%= form_with(model: invoice_item, url: billing.invoice_invoice_items_path(invoice_item.billing_invoice_id, turbo_stream: true), method: :post, data: { turbo_stream: true }, scope: :invoice_item) do |form| %>
+<%= form_with(model: invoice_item, url: billing.invoice_invoice_items_path(invoice_item.billing_invoice_id, turbo_stream: true), method: :post, data: { turbo_stream: true }, scope: :invoice_item, html: { class: "form-andes" }) do |form| %>
 
   <% if invoice_item.errors.any? %>
-    <div style="color: red">
-      <h4><%= pluralize(invoice_item.errors.count, "error") %> prohibited this item from being saved:</h4>
-      <ul>
+    <div class="alert-andes alert-andes--error mb-3">
+      <strong><%= pluralize(invoice_item.errors.count, "error") %> prohibited this item from being saved:</strong>
+      <ul class="mb-0 mt-1">
         <% invoice_item.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,32 +11,34 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="col">
-      <div class="row d-flex justify-content-center">
-        <div class="col-2">
-          <%= form.label :date, "Date", class: "col-form-label fw-bold" %>
-          <%= form.date_field :date, class: "form-control" %>
-        </div>
-        <div class="col-2">
-          <%= form.label :duration, class: "col-form-label fw-bold" %>
-          <%= form.number_field :duration, class: "form-control" %>
-        </div>
-        <div class="col-2">
-          <%= form.label :kind, class: "col-form-label fw-bold" %>
-          <%= form.select :kind, Billing::InvoiceItem.kinds.keys.map { |kind| [kind.humanize, kind] }, {}, class: "form-select" %>
-        </div>
-        <div class="col-3">
-          <%= form.label :description, class: "col-form-label fw-bold" %>
-          <%= form.text_field :description, class: "form-control" %>
-        </div>
-        <div class="col-2">
-          <%= form.label :unit_price, class: "col-form-label fw-bold" %>
-          <%= form.text_field :unit_price, class: "form-control" %>
-        </div>
-        <div class="col-1 align-self-end">
-          <%= form.submit "Add", class: "btn btn-primary btn-sm bi bi-plus mb-1" %>
-        </div>
+  <div class="billing-section-header">
+    <h3>Add Item</h3>
+  </div>
+
+  <div class="item-form-row">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-2">
+        <%= form.label :date, "Date", class: "form-label" %>
+        <%= form.date_field :date, class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= form.label :duration, class: "form-label" %>
+        <%= form.number_field :duration, class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= form.label :kind, class: "form-label" %>
+        <%= form.select :kind, Billing::InvoiceItem.kinds.keys.map { |kind| [kind.humanize, kind] }, {}, class: "form-select" %>
+      </div>
+      <div class="col-md-3">
+        <%= form.label :description, class: "form-label" %>
+        <%= form.text_field :description, class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= form.label :unit_price, class: "form-label" %>
+        <%= form.text_field :unit_price, class: "form-control" %>
+      </div>
+      <div class="col-md-1">
+        <%= form.submit "Add", class: "btn btn-andes btn-andes-sm" %>
       </div>
     </div>
   </div>

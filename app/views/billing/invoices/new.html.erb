@@ -1,8 +1,10 @@
-<% content_for :title, "New invoice" %>
+<% content_for :title, "New Invoice" %>
 
-<div class="d-flex align-items-center">
-  <h1>New Invoice</h1>
-  <%= link_to "Back", invoices_path, class: "btn btn-sm btn-dark ms-auto" %>
+<%= link_to invoices_path, class: "back-link" do %>
+  <i class="bi bi-arrow-left"></i> Invoices
+<% end %>
+
+<div class="card-andes p-4">
+  <h1 class="mb-4">New Invoice</h1>
+  <%= render "form", invoice: @invoice %>
 </div>
-
-<%= render "form", invoice: @invoice %>

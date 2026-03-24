@@ -1,84 +1,91 @@
-<div class="d-flex mb-5">
-  <%= link_to "Back", invoices_path, class: "btn btn-sm btn-dark ms-auto me-2" %>
-  <%= button_tag "Download PDF", id: "download-pdf-btn", class: "btn btn-sm btn-primary" %>
+<%= link_to invoices_path, class: "back-link" do %>
+  <i class="bi bi-arrow-left"></i> Invoices
+<% end %>
+
+<div class="d-flex gap-2 mb-4">
+  <%= button_tag id: "download-pdf-btn", class: "btn btn-andes" do %>
+    <i class="bi bi-file-pdf"></i> Download PDF
+  <% end %>
 </div>
 
-<div id="invoice-wrapper">
-    <div class="d-flex justify-content-between mb-3">
-      <h1>Invoice</h1>
-      <div class="text-end">
-        <strong>Date:</strong>
-        <p><%= @invoice.issue_date&.to_fs(:day_month_year) %></p>
-        <strong>Number:</strong>
-        <p><%= "#{@invoice.number} - #{@invoice.issue_date.year}" %></p>
+<div id="invoice-wrapper" class="card-andes p-4">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <h1>Invoice</h1>
+    <div class="invoice-doc__meta">
+      <div class="invoice-doc__meta-item">
+        <span class="invoice-doc__meta-label">Date</span>
+        <span class="invoice-doc__meta-value"><%= @invoice.issue_date&.to_fs(:day_month_year) %></span>
+      </div>
+      <div class="invoice-doc__meta-item">
+        <span class="invoice-doc__meta-label">Number</span>
+        <span class="invoice-doc__meta-value"><%= "#{@invoice.number} — #{@invoice.issue_date.year}" %></span>
       </div>
     </div>
+  </div>
 
-    <div class="d-flex justify-content-between">
-      <div class="text-start">
-        <h6>Rechnungsempfängers</h6>
-        <h3 class="mb-3"><%= @invoice.recipient.name %></h3>
-        <p class="my-1"><%= @invoice.recipient.address %></p>
-        <p class="my-1"><%= @invoice.recipient.phone %></p>
-        <p class="mt-1 mb-2"><%= @invoice.recipient.email %></p>
-        <strong>Steuernummer: </strong>
-        <p><%= @invoice.recipient.tax_number %></p>
-      </div>
-      <div class="text-end">
-        <h6>Rechnungssteller</h6>
-        <h3 class="mb-3"><%= @invoice.issuer.name %></h3>
-        <p class="my-1"><%= @invoice.issuer.address %></p>
-        <p class="my-1"><%= @invoice.issuer.phone %></p>
-        <p class="mt-1 mb-2"><%= @invoice.issuer.email %></p>
-        <strong>Steuernummer: </strong>
-        <p><%= @invoice.issuer.tax_number %></p>
+  <div class="invoice-doc__parties">
+    <div class="invoice-doc__party">
+      <div class="invoice-doc__party-label">Rechnungsempfänger</div>
+      <div class="invoice-doc__party-name"><%= @invoice.recipient.name %></div>
+      <p class="invoice-doc__party-detail"><%= @invoice.recipient.address %></p>
+      <p class="invoice-doc__party-detail"><%= @invoice.recipient.phone %></p>
+      <p class="invoice-doc__party-detail"><%= @invoice.recipient.email %></p>
+      <p class="invoice-doc__party-tax">Steuernummer: <span><%= @invoice.recipient.tax_number %></span></p>
+    </div>
+    <div class="invoice-doc__party" style="text-align: right;">
+      <div class="invoice-doc__party-label">Rechnungssteller</div>
+      <div class="invoice-doc__party-name"><%= @invoice.issuer.name %></div>
+      <p class="invoice-doc__party-detail"><%= @invoice.issuer.address %></p>
+      <p class="invoice-doc__party-detail"><%= @invoice.issuer.phone %></p>
+      <p class="invoice-doc__party-detail"><%= @invoice.issuer.email %></p>
+      <p class="invoice-doc__party-tax">Steuernummer: <span><%= @invoice.issuer.tax_number %></span></p>
+    </div>
+  </div>
+
+  <table class="table-andes mt-4">
+    <thead>
+      <tr>
+        <th class="text-center">Date</th>
+        <th class="text-center">Duration</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @invoice.invoice_items.sort_by { |i| i.date }.each do |item| %>
+      <tr>
+        <th class="text-center"><%= item.date&.to_fs(:day_month_year) %></th>
+        <td class="text-center"><%= item.duration %></td>
+        <td><%= item.description %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="row justify-content-end mt-4">
+    <div class="col-lg-5">
+      <div class="totals-card">
+        <div class="totals-card__row">
+          <span>Net Total</span>
+          <span><%= number_to_currency @invoice.net_total %></span>
+        </div>
+        <div class="totals-card__row">
+          <span>Tax Total</span>
+          <span><%= number_to_currency @invoice.tax_amount %></span>
+        </div>
+        <div class="totals-card__row totals-card__row--total">
+          <span>Gross Total</span>
+          <span class="totals-card__amount"><%= number_to_currency @invoice.gross_total %></span>
+        </div>
       </div>
     </div>
-
-    <table class="table table-sm mt-4">
-      <thead>
-        <tr>
-          <th scope="col" class="text-center">Date</th>
-          <th scope="col" class="text-center">Duration</th>
-          <th scope="col">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @invoice.invoice_items.sort_by { |i| i.date }.each do |item| %>
-        <tr>
-          <th class="col-sm-2 text-center"><%= item.date&.to_fs(:day_month_year) %></th>
-          <td class="col-sm-2 text-center"><%= item.duration %></td>
-          <td><%= item.description %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-
-    <div class="row justify-content-end">
-      <div class="col-lg-4">
-        <table class="table">
-          <tbody>
-          <tr>
-            <td class="text-start"><strong>Net Total</strong></td><td class="text-end"><%= number_to_currency @invoice.net_total %></td>
-          </tr>
-          <tr>
-            <td class="text-start"><strong>Tax Total</strong></td><td class="text-end"><%= number_to_currency @invoice.tax_amount %></td>
-          </tr>
-          <tr>
-            <td class="text-start"><strong>Gross Total</strong></td><td class="text-end"><%= number_to_currency @invoice.gross_total %></td>
-          </tr>
-        </table>
-      </div>
-    </div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <script>
   document.getElementById('download-pdf-btn').addEventListener('click', function() {
-    // Element to convert to PDF
     const element = document.getElementById('invoice-wrapper');
 
-    // Configuration
     const options = {
       margin: 10,
       filename: 'Invoice_<%= @invoice.number %>_<%= @invoice.issue_date.year %>.pdf',
@@ -87,7 +94,6 @@
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Generate PDF
     html2pdf().from(element).set(options).save();
   });
 </script>

@@ -1,15 +1,17 @@
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th scope="col" class="text-center">Net Total</th>
-    <th scope="col" class="text-center">Tax Total</th>
-    <th scope="col" class="text-center">Gross Total</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td class="text-center"><%= number_to_currency invoice.net_total %></td>
-    <td class="text-center"><%= number_to_currency invoice.tax_amount %></td>
-    <td class="text-center"><%= number_to_currency invoice.gross_total %></td>
-  </tr>
-</table>
+<div class="card-andes p-3 mt-4">
+  <h3 class="mb-3">Totals</h3>
+  <div class="totals-card">
+    <div class="totals-card__row">
+      <span>Net Total</span>
+      <span><%= number_to_currency invoice.net_total %></span>
+    </div>
+    <div class="totals-card__row">
+      <span>Tax Total</span>
+      <span><%= number_to_currency invoice.tax_amount %></span>
+    </div>
+    <div class="totals-card__row totals-card__row--total">
+      <span>Gross Total</span>
+      <span class="totals-card__amount"><%= number_to_currency invoice.gross_total %></span>
+    </div>
+  </div>
+</div>

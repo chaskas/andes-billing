@@ -1,0 +1,196 @@
+// ============================================
+// ANDES ACADEMY — BILLING ENGINE ADMIN STYLES
+// Extends the shared Andes design system with
+// billing-specific components
+// ============================================
+
+// --- Andes Design Tokens (standalone for engine builds) ---
+:root {
+  --andes-night: #1e2d2f;
+  --andes-cream: #faf6ef;
+  --andes-terra: #c45d3e;
+  --andes-gold: #c9963a;
+  --andes-sage: #5a7a5e;
+  --andes-sand: #ede4d4;
+  --andes-ink: #2a2520;
+  --andes-rose: #d4836b;
+  --andes-terra-light: #faf0ec;
+  --andes-gold-light: #fdf6e8;
+  --andes-sage-light: #eef3ee;
+  --andes-danger: #c0392b;
+  --andes-danger-light: #fdf0ef;
+}
+
+// --- Andes Table ---
+.table-andes {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+
+  thead th {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(42, 37, 32, 0.45);
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--andes-sand);
+    white-space: nowrap;
+  }
+
+  tbody td,
+  tbody th {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--andes-sand);
+    color: var(--andes-ink);
+    vertical-align: middle;
+  }
+
+  tbody th {
+    font-weight: 500;
+  }
+
+  tbody tr {
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba(250, 246, 239, 0.5);
+    }
+
+    &:last-child td,
+    &:last-child th {
+      border-bottom: none;
+    }
+  }
+}
+
+// --- Invoice Totals ---
+.totals-card {
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--andes-sand);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    color: var(--andes-ink);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--total {
+      font-weight: 600;
+      padding-top: 0.85rem;
+    }
+
+    &--total .totals-card__amount {
+      font-family: 'Cormorant', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--andes-terra);
+    }
+  }
+}
+
+// --- Invoice Document (show / PDF) ---
+.invoice-doc {
+  &__parties {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__party {
+    flex: 1;
+  }
+
+  &__party-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(42, 37, 32, 0.45);
+    margin-bottom: 0.5rem;
+  }
+
+  &__party-name {
+    font-family: 'Cormorant', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--andes-ink);
+    margin-bottom: 0.5rem;
+  }
+
+  &__party-detail {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(42, 37, 32, 0.65);
+    margin: 0.15rem 0;
+  }
+
+  &__party-tax {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(42, 37, 32, 0.5);
+    margin-top: 0.5rem;
+
+    span {
+      font-weight: 400;
+    }
+  }
+
+  &__meta {
+    text-align: right;
+  }
+
+  &__meta-item {
+    margin-bottom: 0.75rem;
+  }
+
+  &__meta-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(42, 37, 32, 0.45);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  &__meta-value {
+    font-family: 'Cormorant', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--andes-ink);
+  }
+}
+
+// --- Item Form (inline on edit page) ---
+.item-form-row {
+  background: var(--andes-cream);
+  border: 1px solid var(--andes-sand);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+// --- Section Header (billing-specific) ---
+.billing-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
+  h2, h3 {
+    margin: 0;
+  }
+}
