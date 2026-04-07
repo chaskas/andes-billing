@@ -6,7 +6,7 @@ module Billing
 
     # GET /invoices
     def index
-      @invoices = Invoice.all
+      @invoices = Invoice.order(issue_date: :desc)
     end
 
     # GET /invoices/new
