@@ -68,6 +68,34 @@
   }
 }
 
+// --- Back Link (pill style) ---
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(42, 37, 32, 0.55);
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--andes-sand);
+  background: transparent;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--andes-terra);
+    background: var(--andes-terra-light);
+    border-color: var(--andes-rose);
+  }
+
+  i {
+    font-size: 0.75rem;
+  }
+}
+
 // --- Invoice Totals ---
 .totals-card {
   &__row {

@@ -11,39 +11,48 @@
 </div>
 
 <% if @invoices.any? %>
-  <% @invoices.each do |invoice| %>
-    <div class="list-card">
-      <div class="list-card__info">
-        <div class="list-card__title">
-          <%= link_to "Invoice ##{invoice.number} — #{invoice.issue_date.year}", invoice_path(invoice) %>
-        </div>
-        <div class="list-card__meta">
-          <i class="bi bi-person"></i> <%= invoice.recipient.name %>
-          &middot; <i class="bi bi-calendar3"></i> <%= invoice.issue_date&.to_fs(:day_month_year) %>
-          &middot; <i class="bi bi-cash-stack"></i> <%= number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".") %>
-        </div>
-      </div>
-      <div class="list-card__actions">
-        <%= link_to invoice_path(invoice), class: "btn btn-andes-outline btn-andes-sm" do %>
-          <i class="bi bi-eye"></i> View
+  <div class="card-andes">
+    <table class="table-andes">
+      <thead>
+        <tr>
+          <th>Invoice</th>
+          <th>Recipient</th>
+          <th class="text-center">Date</th>
+          <th class="text-end">Total</th>
+          <th class="text-center">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoices.each do |invoice| %>
+          <tr>
+            <td><%= link_to "##{invoice.number} — #{invoice.issue_date.year}", invoice_path(invoice) %></td>
+            <td><%= invoice.recipient.name %></td>
+            <td class="text-center"><%= invoice.issue_date&.to_fs(:day_month_year) %></td>
+            <td class="text-end"><%= number_to_currency(invoice.gross_total, unit: "€", separator: ",", delimiter: ".") %></td>
+            <td class="text-center">
+              <%= link_to invoice_path(invoice), class: "btn btn-andes-outline btn-andes-sm" do %>
+                <i class="bi bi-eye"></i>
+              <% end %>
+              <%= link_to edit_invoice_path(invoice), class: "btn btn-andes-outline btn-andes-sm" do %>
+                <i class="bi bi-pencil"></i>
+              <% end %>
+              <%= link_to "#", class: "btn btn-andes-outline btn-andes-sm pdf-download-btn",
+                    data: {
+                      invoice_id: invoice.id,
+                      invoice_number: invoice.number,
+                      invoice_year: invoice.issue_date.year
+                    } do %>
+                <i class="bi bi-file-pdf"></i>
+              <% end %>
+              <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-andes-danger btn-andes-sm" do %>
+                <i class="bi bi-trash"></i>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-        <%= link_to edit_invoice_path(invoice), class: "btn btn-andes-outline btn-andes-sm" do %>
-          <i class="bi bi-pencil"></i> Edit
-        <% end %>
-        <%= link_to "#", class: "btn btn-andes-outline btn-andes-sm pdf-download-btn",
-              data: {
-                invoice_id: invoice.id,
-                invoice_number: invoice.number,
-                invoice_year: invoice.issue_date.year
-              } do %>
-          <i class="bi bi-file-pdf"></i> PDF
-        <% end %>
-        <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-andes-danger btn-andes-sm" do %>
-          <i class="bi bi-trash"></i>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
   <div class="card-andes p-4">
     <div class="empty-state">
